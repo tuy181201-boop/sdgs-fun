@@ -1,0 +1,144 @@
+! ================================================================
+! physics_module.f90
+! Модуль физики для SDGS
+! Автор: Куралесенко Дмитрий (адаптировано из исходного кода)
+! Версия: 1.0 (LLVM IR ready)
+! ================================================================
+
+module physics_module
+    use, intrinsic :: iso_c_binding
+    implicit none
+
+    ! Константы
+    real(8), parameter :: MICROGRAM_TO_KG = 1.0d-9
+    real(8), parameter :: EPSILON = 1.0d-12
+
+    ! Тип для передачи данных о теле (через C-структуру)
+    type, bind(C) :: body_t
+        real(8) :: mass_kg           ! общая масса (кг)
+        real(8) :: com_x, com_y, com_z ! центр масс (м)
+        real(8) :: vel_x, vel_y, vel_z ! скорость (м/с)
+    end type body_t
+
+contains
+
+    ! ================================================================
+    ! Вычисление центра масс и общей массы по массивам вокселей
+    ! ================================================================
+    subroutine compute_center_of_mass(n, voxel_x, voxel_y, voxel_z, voxel_mass, &
+                                      voxel_size, total_mass, com_x, com_y, com_z) &
+        bind(C, name="compute_center_of_mass")
+        integer(c_int), intent(in), value :: n
+        integer(c_int), intent(in) :: voxel_x(n), voxel_y(n), voxel_z(n)
+        integer(c_int64_t), intent(in) :: voxel_mass(n)   ! масса в мкг
+        real(c_double), intent(in), value :: voxel_size   ! размер вокселя (м)
+        real(c_double), intent(out) :: total_mass
+        real(c_double), intent(out) :: com_x, com_y, com_z
+
+        ! Локальные переменные
+        integer :: i
+        real(8) :: mass_kg, pos_x, pos_y, pos_z
+        real(8) :: sum_mass, sum_x, sum_y, sum_z
+
+        sum_mass = 0.0d0
+        sum_x = 0.0d0
+        sum_y = 0.0d0
+        sum_z = 0.0d0
+
+        do i = 1, n
+            mass_kg = real(voxel_mass(i), 8) * MICROGRAM_TO_KG
+            if (mass_kg <= 0.0d0) cycle
+
+            pos_x = real(voxel_x(i), 8) * voxel_size
+            pos_y = real(voxel_y(i), 8) * voxel_size
+            pos_z = real(voxel_z(i), 8) * voxel_size
+
+            sum_mass = sum_mass + mass_kg
+            sum_x = sum_x + mass_kg * pos_x
+            sum_y = sum_y + mass_kg * pos_y
+            sum_z = sum_z + mass_kg * pos_z
+        end do
+
+        if (sum_mass > EPSILON) then
+            total_mass = sum_mass
+            com_x = sum_x / sum_mass
+            com_y = sum_y / sum_mass
+            com_z = sum_z / sum_mass
+        else
+            total_mass = 0.0d0
+            com_x = 0.0d0
+            com_y = 0.0d0
+            com_z = 0.0d0
+        end if
+    end subroutine compute_center_of_mass
+
+    ! ================================================================
+    ! Разрешение столкновения двух тел (импульс + отталкивание)
+    ! ================================================================
+    subroutine resolve_collision(body_a, body_b, restitution) &
+        bind(C, name="resolve_collision")
+        type(body_t), intent(inout) :: body_a, body_b
+        real(c_double), intent(in), value :: restitution
+
+        ! Локальные переменные
+        real(8) :: rel_vel_n, impulse
+        real(8) :: dx, dy, dz, dist, nx, ny, nz
+        real(8) :: inv_mass_a, inv_mass_b
+
+        ! Вычисляем нормаль от B к A
+        dx = body_a%com_x - body_b%com_x
+        dy = body_a%com_y - body_b%com_y
+        dz = body_a%com_z - body_b%com_z
+        dist = sqrt(dx*dx + dy*dy + dz*dz)
+
+        if (dist < EPSILON) then
+            ! Если центры совпадают — отодвигаем по оси X
+            body_a%com_x = body_a%com_x + 0.001d0
+            return
+        end if
+
+        nx = dx / dist
+        ny = dy / dist
+        nz = dz / dist
+
+        ! Относительная скорость по нормали
+        rel_vel_n = (body_a%vel_x - body_b%vel_x) * nx &
+                  + (body_a%vel_y - body_b%vel_y) * ny &
+                  + (body_a%vel_z - body_b%vel_z) * nz
+
+        ! Если тела разлетаются — ничего не делаем
+        if (rel_vel_n > 0.0d0) return
+
+        ! Вычисляем импульс
+        inv_mass_a = 1.0d0 / body_a%mass_kg
+        inv_mass_b = 1.0d0 / body_b%mass_kg
+
+        impulse = -(1.0d0 + restitution) * rel_vel_n / (inv_mass_a + inv_mass_b)
+
+        ! Применяем импульс к скоростям
+        body_a%vel_x = body_a%vel_x + impulse * inv_mass_a * nx
+        body_a%vel_y = body_a%vel_y + impulse * inv_mass_a * ny
+        body_a%vel_z = body_a%vel_z + impulse * inv_mass_a * nz
+
+        body_b%vel_x = body_b%vel_x - impulse * inv_mass_b * nx
+        body_b%vel_y = body_b%vel_y - impulse * inv_mass_b * ny
+        body_b%vel_z = body_b%vel_z - impulse * inv_mass_b * nz
+
+        ! Корректировка позиций (разведение по нормали, чтобы избежать залипания)
+        ! (можно добавить отталкивание на основе проникновения, но здесь упрощённо)
+    end subroutine resolve_collision
+
+    ! ================================================================
+    ! Вспомогательная: обновление позиции тела по скорости (шаг по времени)
+    ! ================================================================
+    subroutine update_position(body, dt) &
+        bind(C, name="update_position")
+        type(body_t), intent(inout) :: body
+        real(c_double), intent(in), value :: dt
+
+        body%com_x = body%com_x + body%vel_x * dt
+        body%com_y = body%com_y + body%vel_y * dt
+        body%com_z = body%com_z + body%vel_z * dt
+    end subroutine update_position
+
+end module physics_module

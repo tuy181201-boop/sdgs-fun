@@ -1,0 +1,410 @@
+%_QM__fortran_type_infoTcomponent = type { { ptr, i64, i32, i8, i8, i8, i8 }, i8, i8, i8, i8, [4 x i8], i64, %_QM__fortran_type_infoTvalue, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] }, %_QM__fortran_builtinsT__builtin_c_ptr }
+%_QM__fortran_type_infoTvalue = type { i8, [7 x i8], i64 }
+%_QM__fortran_builtinsT__builtin_c_ptr = type { i64 }
+%_QM__fortran_type_infoTderivedtype = type { { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] }, { ptr, i64, i32, i8, i8, i8, i8 }, i64, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] }, i32, i8, i8, i8, i8, [4 x i8] }
+%_QM__fortran_type_infoTbinding = type { %_QM__fortran_builtinsT__builtin_c_funptr, { ptr, i64, i32, i8, i8, i8, i8 } }
+%_QM__fortran_builtinsT__builtin_c_funptr = type { i64 }
+%_QM__fortran_type_infoTprocptrcomponent = type { { ptr, i64, i32, i8, i8, i8, i8 }, i64, %_QM__fortran_builtinsT__builtin_c_funptr }
+%_QM__fortran_type_infoTspecialbinding = type { i8, i8, [6 x i8], %_QM__fortran_builtinsT__builtin_c_funptr }
+%_QMphysics_moduleTbody_t = type { double, double, double, double, double, double, double }
+
+@_QMphysics_moduleE.n.mass_kg = linkonce_odr constant [7 x i8] c"mass_kg"
+@_QMphysics_moduleE.n.com_x = linkonce_odr constant [5 x i8] c"com_x"
+@_QMphysics_moduleE.n.com_y = linkonce_odr constant [5 x i8] c"com_y"
+@_QMphysics_moduleE.n.com_z = linkonce_odr constant [5 x i8] c"com_z"
+@_QMphysics_moduleE.n.vel_x = linkonce_odr constant [5 x i8] c"vel_x"
+@_QMphysics_moduleE.n.vel_y = linkonce_odr constant [5 x i8] c"vel_y"
+@_QMphysics_moduleE.n.vel_z = linkonce_odr constant [5 x i8] c"vel_z"
+@_QMphysics_moduleE.n.body_t = linkonce_odr constant [6 x i8] c"body_t"
+@_QMphysics_moduleECepsilon = constant double 0x3D719799812DEA11
+@_QMphysics_moduleECmicrogram_to_kg = constant double 1.000000e-09
+@_QMphysics_moduleE.c.body_t = linkonce_odr constant [7 x %_QM__fortran_type_infoTcomponent] [%_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QMphysics_moduleE.n.mass_kg, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([7 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 1, i8 8, i8 0, [4 x i8] undef, i64 0, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }, %_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QMphysics_moduleE.n.com_x, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([5 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 1, i8 8, i8 0, [4 x i8] undef, i64 8, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }, %_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QMphysics_moduleE.n.com_y, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([5 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 1, i8 8, i8 0, [4 x i8] undef, i64 16, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }, %_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QMphysics_moduleE.n.com_z, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([5 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 1, i8 8, i8 0, [4 x i8] undef, i64 24, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }, %_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QMphysics_moduleE.n.vel_x, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([5 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 1, i8 8, i8 0, [4 x i8] undef, i64 32, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }, %_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QMphysics_moduleE.n.vel_y, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([5 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 1, i8 8, i8 0, [4 x i8] undef, i64 40, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }, %_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QMphysics_moduleE.n.vel_z, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([5 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 1, i8 8, i8 0, [4 x i8] undef, i64 48, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }]
+@_QMphysics_moduleE.dt.body_t = linkonce_odr constant %_QM__fortran_type_infoTderivedtype { { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTbinding, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTbinding, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QMphysics_moduleE.n.body_t, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([6 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i64 56, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]] } { ptr null, i64 ptrtoint (ptr getelementptr (i64, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 10, i8 1, i8 0, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (i64, ptr null, i32 1) to i64)]] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]] } { ptr null, i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 7, i8 1, i8 0, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64)]] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr @_QMphysics_moduleE.c.body_t, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTcomponent, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 0, i64 7, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTcomponent, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTprocptrcomponent, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTprocptrcomponent, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTspecialbinding, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTspecialbinding, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, i32 0, i8 0, i8 1, i8 1, i8 1, [4 x i8] undef }
+@_QMiso_c_bindingECc_alert = external constant [1 x i8]
+@_QMiso_c_bindingECc_backspace = external constant [1 x i8]
+@_QMiso_c_bindingECc_bool = external constant i32
+@_QMiso_c_bindingECc_carriage_return = external constant [1 x i8]
+@_QMiso_c_bindingECc_char = external constant i32
+@_QMiso_c_bindingECc_double = external constant i32
+@_QMiso_c_bindingECc_double_complex = external constant i32
+@_QMiso_c_bindingECc_float = external constant i32
+@_QMiso_c_bindingECc_float128 = external constant i32
+@_QMiso_c_bindingECc_float128_complex = external constant i32
+@_QMiso_c_bindingECc_float_complex = external constant i32
+@_QMiso_c_bindingECc_form_feed = external constant [1 x i8]
+@_QMiso_c_bindingECc_horizontal_tab = external constant [1 x i8]
+@_QMiso_c_bindingECc_int = external constant i32
+@_QMiso_c_bindingECc_int128_t = external constant i32
+@_QMiso_c_bindingECc_int16_t = external constant i32
+@_QMiso_c_bindingECc_int32_t = external constant i32
+@_QMiso_c_bindingECc_int64_t = external constant i32
+@_QMiso_c_bindingECc_int8_t = external constant i32
+@_QMiso_c_bindingECc_int_fast128_t = external constant i32
+@_QMiso_c_bindingECc_int_fast16_t = external constant i32
+@_QMiso_c_bindingECc_int_fast32_t = external constant i32
+@_QMiso_c_bindingECc_int_fast64_t = external constant i32
+@_QMiso_c_bindingECc_int_fast8_t = external constant i32
+@_QMiso_c_bindingECc_int_least128_t = external constant i32
+@_QMiso_c_bindingECc_int_least16_t = external constant i32
+@_QMiso_c_bindingECc_int_least32_t = external constant i32
+@_QMiso_c_bindingECc_int_least64_t = external constant i32
+@_QMiso_c_bindingECc_int_least8_t = external constant i32
+@_QMiso_c_bindingECc_intmax_t = external constant i32
+@_QMiso_c_bindingECc_intptr_t = external constant i32
+@_QMiso_c_bindingECc_long = external constant i32
+@_QMiso_c_bindingECc_long_double = external constant i32
+@_QMiso_c_bindingECc_long_double_complex = external constant i32
+@_QMiso_c_bindingECc_long_long = external constant i32
+@_QMiso_c_bindingECc_new_line = external constant [1 x i8]
+@_QMiso_c_bindingECc_null_char = external constant [1 x i8]
+@_QMiso_c_bindingECc_null_funptr = external constant %_QM__fortran_builtinsT__builtin_c_funptr
+@_QMiso_c_bindingECc_null_ptr = external constant %_QM__fortran_builtinsT__builtin_c_ptr
+@_QMiso_c_bindingECc_ptrdiff_t = external constant i32
+@_QMiso_c_bindingECc_short = external constant i32
+@_QMiso_c_bindingECc_signed_char = external constant i32
+@_QMiso_c_bindingECc_size_t = external constant i32
+@_QMiso_c_bindingECc_vertical_tab = external constant [1 x i8]
+@_QM__fortran_builtinsE.dt.__builtin_c_funptr = linkonce_odr constant %_QM__fortran_type_infoTderivedtype { { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTbinding, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTbinding, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QM__fortran_builtinsE.n.__builtin_c_funptr, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([18 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i64 8, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]] } { ptr null, i64 ptrtoint (ptr getelementptr (i64, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 10, i8 1, i8 0, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (i64, ptr null, i32 1) to i64)]] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]] } { ptr null, i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 7, i8 1, i8 0, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64)]] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr @_QM__fortran_builtinsE.c.__builtin_c_funptr, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTcomponent, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 0, i64 1, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTcomponent, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTprocptrcomponent, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTprocptrcomponent, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTspecialbinding, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTspecialbinding, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, i32 0, i8 0, i8 1, i8 1, i8 1, [4 x i8] undef }
+@_QM__fortran_builtinsE.n.__builtin_c_funptr = linkonce_odr constant [18 x i8] c"__builtin_c_funptr"
+@_QM__fortran_builtinsE.c.__builtin_c_funptr = linkonce_odr constant [1 x %_QM__fortran_type_infoTcomponent] [%_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QM__fortran_builtinsE.n.__address, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([9 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 0, i8 8, i8 0, [4 x i8] undef, i64 0, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }]
+@_QM__fortran_builtinsE.n.__address = linkonce_odr constant [9 x i8] c"__address"
+@_QM__fortran_builtinsE.dt.__builtin_c_ptr = linkonce_odr constant %_QM__fortran_type_infoTderivedtype { { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTbinding, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTbinding, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QM__fortran_builtinsE.n.__builtin_c_ptr, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([15 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i64 8, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]] } { ptr null, i64 ptrtoint (ptr getelementptr (i64, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 10, i8 1, i8 0, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (i64, ptr null, i32 1) to i64)]] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]] } { ptr null, i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 7, i8 1, i8 0, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64)]] }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr @_QM__fortran_builtinsE.c.__builtin_c_ptr, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTcomponent, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 0, i64 1, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTcomponent, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTprocptrcomponent, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTprocptrcomponent, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTspecialbinding, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTspecialbinding, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, i32 0, i8 0, i8 1, i8 1, i8 1, [4 x i8] undef }
+@_QM__fortran_builtinsE.n.__builtin_c_ptr = linkonce_odr constant [15 x i8] c"__builtin_c_ptr"
+@_QM__fortran_builtinsE.c.__builtin_c_ptr = linkonce_odr constant [1 x %_QM__fortran_type_infoTcomponent] [%_QM__fortran_type_infoTcomponent { { ptr, i64, i32, i8, i8, i8, i8 } { ptr @_QM__fortran_builtinsE.n.__address, i64 mul (i64 ptrtoint (ptr getelementptr (i8, ptr null, i32 1) to i64), i64 ptrtoint (ptr getelementptr ([9 x i8], ptr null, i32 1) to i64)), i32 20180515, i8 0, i8 40, i8 1, i8 0 }, i8 1, i8 0, i8 8, i8 0, [4 x i8] undef, i64 0, %_QM__fortran_type_infoTvalue { i8 1, [7 x i8] undef, i64 0 }, { ptr, i64, i32, i8, i8, i8, i8, ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTderivedtype, ptr null, i32 1) to i64), i32 20180515, i8 0, i8 42, i8 1, i8 1, ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [1 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 1, i8 42, i8 1, i8 1, [1 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)]], ptr null, [1 x i64] undef }, { ptr, i64, i32, i8, i8, i8, i8, [2 x [3 x i64]], ptr, [1 x i64] } { ptr null, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64), i32 20180515, i8 2, i8 42, i8 1, i8 1, [2 x [3 x i64]] [[3 x i64] [i64 1, i64 0, i64 ptrtoint (ptr getelementptr (%_QM__fortran_type_infoTvalue, ptr null, i32 1) to i64)], [3 x i64] [i64 1, i64 0, i64 0]], ptr null, [1 x i64] undef }, %_QM__fortran_builtinsT__builtin_c_ptr zeroinitializer }]
+
+declare ptr @malloc(i64)
+
+declare void @free(ptr)
+
+define void @compute_center_of_mass(i32 %0, ptr %1, ptr %2, ptr %3, ptr %4, double %5, ptr %6, ptr %7, ptr %8, ptr %9) {
+  %11 = alloca i32, i64 1, align 4
+  store i32 %0, ptr %11, align 4
+  %12 = alloca double, i64 1, align 8
+  store double %5, ptr %12, align 8
+  %13 = alloca i32, i64 1, align 4
+  %14 = alloca double, i64 1, align 8
+  %15 = alloca double, i64 1, align 8
+  %16 = alloca double, i64 1, align 8
+  %17 = alloca double, i64 1, align 8
+  %18 = alloca double, i64 1, align 8
+  %19 = alloca double, i64 1, align 8
+  %20 = alloca double, i64 1, align 8
+  %21 = alloca double, i64 1, align 8
+  store double 0.000000e+00, ptr %18, align 8
+  store double 0.000000e+00, ptr %19, align 8
+  store double 0.000000e+00, ptr %20, align 8
+  store double 0.000000e+00, ptr %21, align 8
+  %22 = load i32, ptr %11, align 4
+  %23 = sext i32 %22 to i64
+  br label %24
+
+24:
+  %25 = phi i32 [ %84, %82 ], [ 1, %10 ]
+  %26 = phi i64 [ %85, %82 ], [ %23, %10 ]
+  %27 = icmp sgt i64 %26, 0
+  br i1 %27, label %28, label %86
+
+28:
+  store i32 %25, ptr %13, align 4
+  %29 = load i32, ptr %13, align 4
+  %30 = sext i32 %29 to i64
+  %31 = sub i64 %30, 1
+  %32 = getelementptr i64, ptr %4, i64 %31
+  %33 = load i64, ptr %32, align 8
+  %34 = sitofp i64 %33 to double
+  %35 = fmul contract double %34, 1.000000e-09
+  store double %35, ptr %14, align 8
+  %36 = load double, ptr %14, align 8
+  %37 = fcmp ole double %36, 0.000000e+00
+  %38 = xor i1 %37, true
+  br i1 %38, label %39, label %82
+
+39:
+  %40 = load i32, ptr %13, align 4
+  %41 = sext i32 %40 to i64
+  %42 = sub i64 %41, 1
+  %43 = getelementptr i32, ptr %1, i64 %42
+  %44 = load i32, ptr %43, align 4
+  %45 = sitofp i32 %44 to double
+  %46 = load double, ptr %12, align 8
+  %47 = fmul contract double %45, %46
+  store double %47, ptr %15, align 8
+  %48 = load i32, ptr %13, align 4
+  %49 = sext i32 %48 to i64
+  %50 = sub i64 %49, 1
+  %51 = getelementptr i32, ptr %2, i64 %50
+  %52 = load i32, ptr %51, align 4
+  %53 = sitofp i32 %52 to double
+  %54 = load double, ptr %12, align 8
+  %55 = fmul contract double %53, %54
+  store double %55, ptr %16, align 8
+  %56 = load i32, ptr %13, align 4
+  %57 = sext i32 %56 to i64
+  %58 = sub i64 %57, 1
+  %59 = getelementptr i32, ptr %3, i64 %58
+  %60 = load i32, ptr %59, align 4
+  %61 = sitofp i32 %60 to double
+  %62 = load double, ptr %12, align 8
+  %63 = fmul contract double %61, %62
+  store double %63, ptr %17, align 8
+  %64 = load double, ptr %18, align 8
+  %65 = load double, ptr %14, align 8
+  %66 = fadd contract double %64, %65
+  store double %66, ptr %18, align 8
+  %67 = load double, ptr %19, align 8
+  %68 = load double, ptr %14, align 8
+  %69 = load double, ptr %15, align 8
+  %70 = fmul contract double %68, %69
+  %71 = fadd contract double %67, %70
+  store double %71, ptr %19, align 8
+  %72 = load double, ptr %20, align 8
+  %73 = load double, ptr %14, align 8
+  %74 = load double, ptr %16, align 8
+  %75 = fmul contract double %73, %74
+  %76 = fadd contract double %72, %75
+  store double %76, ptr %20, align 8
+  %77 = load double, ptr %21, align 8
+  %78 = load double, ptr %14, align 8
+  %79 = load double, ptr %17, align 8
+  %80 = fmul contract double %78, %79
+  %81 = fadd contract double %77, %80
+  store double %81, ptr %21, align 8
+  br label %82
+
+82:
+  %83 = load i32, ptr %13, align 4
+  %84 = add i32 %83, 1
+  %85 = sub i64 %26, 1
+  br label %24
+
+86:
+  store i32 %25, ptr %13, align 4
+  %87 = load double, ptr %18, align 8
+  %88 = fcmp ogt double %87, 0x3D719799812DEA11
+  br i1 %88, label %89, label %100
+
+89:
+  %90 = load double, ptr %18, align 8
+  store double %90, ptr %6, align 8
+  %91 = load double, ptr %19, align 8
+  %92 = load double, ptr %18, align 8
+  %93 = fdiv contract double %91, %92
+  store double %93, ptr %7, align 8
+  %94 = load double, ptr %20, align 8
+  %95 = load double, ptr %18, align 8
+  %96 = fdiv contract double %94, %95
+  store double %96, ptr %8, align 8
+  %97 = load double, ptr %21, align 8
+  %98 = load double, ptr %18, align 8
+  %99 = fdiv contract double %97, %98
+  store double %99, ptr %9, align 8
+  br label %101
+
+100:
+  store double 0.000000e+00, ptr %6, align 8
+  store double 0.000000e+00, ptr %7, align 8
+  store double 0.000000e+00, ptr %8, align 8
+  store double 0.000000e+00, ptr %9, align 8
+  br label %101
+
+101:
+  ret void
+}
+
+define void @resolve_collision(ptr %0, ptr %1, double %2) {
+  %4 = alloca double, i64 1, align 8
+  store double %2, ptr %4, align 8
+  %5 = alloca double, i64 1, align 8
+  %6 = alloca double, i64 1, align 8
+  %7 = alloca double, i64 1, align 8
+  %8 = alloca double, i64 1, align 8
+  %9 = alloca double, i64 1, align 8
+  %10 = alloca double, i64 1, align 8
+  %11 = alloca double, i64 1, align 8
+  %12 = alloca double, i64 1, align 8
+  %13 = alloca double, i64 1, align 8
+  %14 = alloca double, i64 1, align 8
+  %15 = alloca double, i64 1, align 8
+  %16 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 1
+  %17 = load double, ptr %16, align 8
+  %18 = getelementptr %_QMphysics_moduleTbody_t, ptr %1, i32 0, i32 1
+  %19 = load double, ptr %18, align 8
+  %20 = fsub contract double %17, %19
+  store double %20, ptr %6, align 8
+  %21 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 2
+  %22 = load double, ptr %21, align 8
+  %23 = getelementptr %_QMphysics_moduleTbody_t, ptr %1, i32 0, i32 2
+  %24 = load double, ptr %23, align 8
+  %25 = fsub contract double %22, %24
+  store double %25, ptr %7, align 8
+  %26 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 3
+  %27 = load double, ptr %26, align 8
+  %28 = getelementptr %_QMphysics_moduleTbody_t, ptr %1, i32 0, i32 3
+  %29 = load double, ptr %28, align 8
+  %30 = fsub contract double %27, %29
+  store double %30, ptr %8, align 8
+  %31 = load double, ptr %6, align 8
+  %32 = fmul contract double %31, %31
+  %33 = load double, ptr %7, align 8
+  %34 = fmul contract double %33, %33
+  %35 = fadd contract double %32, %34
+  %36 = load double, ptr %8, align 8
+  %37 = fmul contract double %36, %36
+  %38 = fadd contract double %35, %37
+  %39 = call contract double @llvm.sqrt.f64(double %38)
+  store double %39, ptr %5, align 8
+  %40 = load double, ptr %5, align 8
+  %41 = fcmp olt double %40, 0x3D719799812DEA11
+  br i1 %41, label %42, label %45
+
+42:
+  %43 = load double, ptr %16, align 8
+  %44 = fadd contract double %43, 1.000000e-03
+  store double %44, ptr %16, align 8
+  br label %138
+
+45:
+  %46 = load double, ptr %6, align 8
+  %47 = load double, ptr %5, align 8
+  %48 = fdiv contract double %46, %47
+  store double %48, ptr %12, align 8
+  %49 = load double, ptr %7, align 8
+  %50 = load double, ptr %5, align 8
+  %51 = fdiv contract double %49, %50
+  store double %51, ptr %13, align 8
+  %52 = load double, ptr %8, align 8
+  %53 = load double, ptr %5, align 8
+  %54 = fdiv contract double %52, %53
+  store double %54, ptr %14, align 8
+  %55 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 4
+  %56 = load double, ptr %55, align 8
+  %57 = getelementptr %_QMphysics_moduleTbody_t, ptr %1, i32 0, i32 4
+  %58 = load double, ptr %57, align 8
+  %59 = fsub contract double %56, %58
+  %60 = load double, ptr %12, align 8
+  %61 = fmul contract double %59, %60
+  %62 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 5
+  %63 = load double, ptr %62, align 8
+  %64 = getelementptr %_QMphysics_moduleTbody_t, ptr %1, i32 0, i32 5
+  %65 = load double, ptr %64, align 8
+  %66 = fsub contract double %63, %65
+  %67 = load double, ptr %13, align 8
+  %68 = fmul contract double %66, %67
+  %69 = fadd contract double %61, %68
+  %70 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 6
+  %71 = load double, ptr %70, align 8
+  %72 = getelementptr %_QMphysics_moduleTbody_t, ptr %1, i32 0, i32 6
+  %73 = load double, ptr %72, align 8
+  %74 = fsub contract double %71, %73
+  %75 = load double, ptr %14, align 8
+  %76 = fmul contract double %74, %75
+  %77 = fadd contract double %69, %76
+  store double %77, ptr %15, align 8
+  %78 = load double, ptr %15, align 8
+  %79 = fcmp ogt double %78, 0.000000e+00
+  br i1 %79, label %138, label %80
+
+80:
+  %81 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 0
+  %82 = load double, ptr %81, align 8
+  %83 = fdiv contract double 1.000000e+00, %82
+  store double %83, ptr %10, align 8
+  %84 = getelementptr %_QMphysics_moduleTbody_t, ptr %1, i32 0, i32 0
+  %85 = load double, ptr %84, align 8
+  %86 = fdiv contract double 1.000000e+00, %85
+  store double %86, ptr %11, align 8
+  %87 = load double, ptr %4, align 8
+  %88 = fadd contract double %87, 1.000000e+00
+  %89 = load double, ptr %15, align 8
+  %90 = fmul contract double %88, %89
+  %91 = load double, ptr %10, align 8
+  %92 = load double, ptr %11, align 8
+  %93 = fadd contract double %91, %92
+  %94 = fdiv contract double %90, %93
+  %95 = fneg contract double %94
+  store double %95, ptr %9, align 8
+  %96 = load double, ptr %55, align 8
+  %97 = load double, ptr %9, align 8
+  %98 = load double, ptr %10, align 8
+  %99 = fmul contract double %97, %98
+  %100 = load double, ptr %12, align 8
+  %101 = fmul contract double %99, %100
+  %102 = fadd contract double %96, %101
+  store double %102, ptr %55, align 8
+  %103 = load double, ptr %62, align 8
+  %104 = load double, ptr %9, align 8
+  %105 = load double, ptr %10, align 8
+  %106 = fmul contract double %104, %105
+  %107 = load double, ptr %13, align 8
+  %108 = fmul contract double %106, %107
+  %109 = fadd contract double %103, %108
+  store double %109, ptr %62, align 8
+  %110 = load double, ptr %70, align 8
+  %111 = load double, ptr %9, align 8
+  %112 = load double, ptr %10, align 8
+  %113 = fmul contract double %111, %112
+  %114 = load double, ptr %14, align 8
+  %115 = fmul contract double %113, %114
+  %116 = fadd contract double %110, %115
+  store double %116, ptr %70, align 8
+  %117 = load double, ptr %57, align 8
+  %118 = load double, ptr %9, align 8
+  %119 = load double, ptr %11, align 8
+  %120 = fmul contract double %118, %119
+  %121 = load double, ptr %12, align 8
+  %122 = fmul contract double %120, %121
+  %123 = fsub contract double %117, %122
+  store double %123, ptr %57, align 8
+  %124 = load double, ptr %64, align 8
+  %125 = load double, ptr %9, align 8
+  %126 = load double, ptr %11, align 8
+  %127 = fmul contract double %125, %126
+  %128 = load double, ptr %13, align 8
+  %129 = fmul contract double %127, %128
+  %130 = fsub contract double %124, %129
+  store double %130, ptr %64, align 8
+  %131 = load double, ptr %72, align 8
+  %132 = load double, ptr %9, align 8
+  %133 = load double, ptr %11, align 8
+  %134 = fmul contract double %132, %133
+  %135 = load double, ptr %14, align 8
+  %136 = fmul contract double %134, %135
+  %137 = fsub contract double %131, %136
+  store double %137, ptr %72, align 8
+  br label %138
+
+138:
+  ret void
+}
+
+define void @update_position(ptr %0, double %1) {
+  %3 = alloca double, i64 1, align 8
+  store double %1, ptr %3, align 8
+  %4 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 1
+  %5 = load double, ptr %4, align 8
+  %6 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 4
+  %7 = load double, ptr %6, align 8
+  %8 = load double, ptr %3, align 8
+  %9 = fmul contract double %7, %8
+  %10 = fadd contract double %5, %9
+  store double %10, ptr %4, align 8
+  %11 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 2
+  %12 = load double, ptr %11, align 8
+  %13 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 5
+  %14 = load double, ptr %13, align 8
+  %15 = load double, ptr %3, align 8
+  %16 = fmul contract double %14, %15
+  %17 = fadd contract double %12, %16
+  store double %17, ptr %11, align 8
+  %18 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 3
+  %19 = load double, ptr %18, align 8
+  %20 = getelementptr %_QMphysics_moduleTbody_t, ptr %0, i32 0, i32 6
+  %21 = load double, ptr %20, align 8
+  %22 = load double, ptr %3, align 8
+  %23 = fmul contract double %21, %22
+  %24 = fadd contract double %19, %23
+  store double %24, ptr %18, align 8
+  ret void
+}
+
+declare double @llvm.sqrt.f64(double) #0

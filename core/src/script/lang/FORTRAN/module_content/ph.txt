@@ -1,0 +1,1113 @@
+.LCPI0_0:
+        .quad   0x3d719799812dea11
+.LCPI0_1:
+        .quad   0x3e112e0be826d695
+compute_center_of_mass:
+        subq    $56, %rsp
+        movq    %r9, -112(%rsp)
+        movq    %r8, -104(%rsp)
+        movq    %rcx, -96(%rsp)
+        movq    %rdx, -88(%rsp)
+        movq    %rsi, -80(%rsp)
+        movq    80(%rsp), %rax
+        movq    %rax, -72(%rsp)
+        movq    72(%rsp), %rax
+        movq    %rax, -64(%rsp)
+        movq    64(%rsp), %rax
+        movq    %rax, -56(%rsp)
+        movl    %edi, 52(%rsp)
+        movsd   %xmm0, 40(%rsp)
+        xorps   %xmm0, %xmm0
+        movsd   %xmm0, -8(%rsp)
+        xorps   %xmm0, %xmm0
+        movsd   %xmm0, -16(%rsp)
+        xorps   %xmm0, %xmm0
+        movsd   %xmm0, -24(%rsp)
+        xorps   %xmm0, %xmm0
+        movsd   %xmm0, -32(%rsp)
+        movslq  52(%rsp), %rax
+        movl    $1, %ecx
+        movl    %ecx, -44(%rsp)
+        movq    %rax, -40(%rsp)
+.LBB0_1:
+        movl    -44(%rsp), %ecx
+        movq    -40(%rsp), %rax
+        movq    %rax, -128(%rsp)
+        movl    %ecx, -116(%rsp)
+        cmpq    $0, %rax
+        jle     .LBB0_5
+        movq    -104(%rsp), %rax
+        movl    -116(%rsp), %ecx
+        movl    %ecx, 36(%rsp)
+        movslq  36(%rsp), %rcx
+        subq    $1, %rcx
+        cvtsi2sdq       (%rax,%rcx,8), %xmm0
+        movsd   .LCPI0_1(%rip), %xmm1
+        mulsd   %xmm1, %xmm0
+        movsd   %xmm0, 24(%rsp)
+        xorps   %xmm0, %xmm0
+        ucomisd 24(%rsp), %xmm0
+        setae   %al
+        xorb    $-1, %al
+        testb   $1, %al
+        jne     .LBB0_3
+        jmp     .LBB0_4
+.LBB0_3:
+        movq    -96(%rsp), %rax
+        movq    -88(%rsp), %rcx
+        movq    -80(%rsp), %rdx
+        movslq  36(%rsp), %rsi
+        subq    $1, %rsi
+        cvtsi2sdl       (%rdx,%rsi,4), %xmm0
+        mulsd   40(%rsp), %xmm0
+        movsd   %xmm0, 16(%rsp)
+        movslq  36(%rsp), %rdx
+        subq    $1, %rdx
+        cvtsi2sdl       (%rcx,%rdx,4), %xmm0
+        mulsd   40(%rsp), %xmm0
+        movsd   %xmm0, 8(%rsp)
+        movslq  36(%rsp), %rcx
+        subq    $1, %rcx
+        cvtsi2sdl       (%rax,%rcx,4), %xmm0
+        mulsd   40(%rsp), %xmm0
+        movsd   %xmm0, (%rsp)
+        movsd   -8(%rsp), %xmm0
+        addsd   24(%rsp), %xmm0
+        movsd   %xmm0, -8(%rsp)
+        movsd   -16(%rsp), %xmm0
+        movsd   24(%rsp), %xmm1
+        mulsd   16(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, -16(%rsp)
+        movsd   -24(%rsp), %xmm0
+        movsd   24(%rsp), %xmm1
+        mulsd   8(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, -24(%rsp)
+        movsd   -32(%rsp), %xmm0
+        movsd   24(%rsp), %xmm1
+        mulsd   (%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, -32(%rsp)
+.LBB0_4:
+        movq    -128(%rsp), %rax
+        movl    36(%rsp), %ecx
+        addl    $1, %ecx
+        subq    $1, %rax
+        movl    %ecx, -44(%rsp)
+        movq    %rax, -40(%rsp)
+        jmp     .LBB0_1
+.LBB0_5:
+        movl    -116(%rsp), %eax
+        movl    %eax, 36(%rsp)
+        movsd   -8(%rsp), %xmm0
+        movsd   .LCPI0_0(%rip), %xmm1
+        ucomisd %xmm1, %xmm0
+        jbe     .LBB0_7
+        movq    -72(%rsp), %rax
+        movq    -64(%rsp), %rcx
+        movq    -56(%rsp), %rdx
+        movq    -112(%rsp), %rsi
+        movsd   -8(%rsp), %xmm0
+        movsd   %xmm0, (%rsi)
+        movsd   -16(%rsp), %xmm0
+        divsd   -8(%rsp), %xmm0
+        movsd   %xmm0, (%rdx)
+        movsd   -24(%rsp), %xmm0
+        divsd   -8(%rsp), %xmm0
+        movsd   %xmm0, (%rcx)
+        movsd   -32(%rsp), %xmm0
+        divsd   -8(%rsp), %xmm0
+        movsd   %xmm0, (%rax)
+        jmp     .LBB0_8
+.LBB0_7:
+        movq    -72(%rsp), %rax
+        movq    -64(%rsp), %rcx
+        movq    -56(%rsp), %rdx
+        movq    -112(%rsp), %rsi
+        xorps   %xmm0, %xmm0
+        movsd   %xmm0, (%rsi)
+        xorps   %xmm0, %xmm0
+        movsd   %xmm0, (%rdx)
+        xorps   %xmm0, %xmm0
+        movsd   %xmm0, (%rcx)
+        xorps   %xmm0, %xmm0
+        movsd   %xmm0, (%rax)
+.LBB0_8:
+        addq    $56, %rsp
+        retq
+
+.LCPI1_0:
+        .quad   0x3d719799812dea11
+.LCPI1_1:
+        .quad   0x3ff0000000000000
+.LCPI1_2:
+        .quad   0x3f50624dd2f1a9fc
+resolve_collision:
+        subq    $40, %rsp
+        movq    %rdi, -80(%rsp)
+        movq    %rsi, -72(%rsp)
+        movsd   %xmm0, 32(%rsp)
+        movq    %rdi, %rax
+        addq    $8, %rax
+        movq    %rax, -64(%rsp)
+        movsd   8(%rdi), %xmm0
+        subsd   8(%rsi), %xmm0
+        movsd   %xmm0, 16(%rsp)
+        movsd   16(%rdi), %xmm0
+        subsd   16(%rsi), %xmm0
+        movsd   %xmm0, 8(%rsp)
+        movsd   24(%rdi), %xmm0
+        subsd   24(%rsi), %xmm0
+        movsd   %xmm0, (%rsp)
+        movsd   16(%rsp), %xmm0
+        mulsd   %xmm0, %xmm0
+        movsd   8(%rsp), %xmm1
+        mulsd   %xmm1, %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   (%rsp), %xmm1
+        mulsd   %xmm1, %xmm1
+        addsd   %xmm1, %xmm0
+        sqrtsd  %xmm0, %xmm0
+        movsd   %xmm0, 24(%rsp)
+        movsd   .LCPI1_0(%rip), %xmm0
+        ucomisd 24(%rsp), %xmm0
+        jbe     .LBB1_2
+        movq    -64(%rsp), %rax
+        movsd   .LCPI1_2(%rip), %xmm0
+        addsd   (%rax), %xmm0
+        movsd   %xmm0, (%rax)
+        jmp     .LBB1_4
+.LBB1_2:
+        movq    -72(%rsp), %rax
+        movq    -80(%rsp), %rcx
+        movsd   16(%rsp), %xmm0
+        divsd   24(%rsp), %xmm0
+        movsd   %xmm0, -32(%rsp)
+        movsd   8(%rsp), %xmm0
+        divsd   24(%rsp), %xmm0
+        movsd   %xmm0, -40(%rsp)
+        movsd   (%rsp), %xmm0
+        divsd   24(%rsp), %xmm0
+        movsd   %xmm0, -48(%rsp)
+        movq    %rcx, %rdx
+        addq    $32, %rdx
+        movq    %rdx, -128(%rsp)
+        movsd   32(%rcx), %xmm0
+        movq    %rax, %rdx
+        addq    $32, %rdx
+        movq    %rdx, -120(%rsp)
+        subsd   32(%rax), %xmm0
+        mulsd   -32(%rsp), %xmm0
+        movq    %rcx, %rdx
+        addq    $40, %rdx
+        movq    %rdx, -112(%rsp)
+        movsd   40(%rcx), %xmm1
+        movq    %rax, %rdx
+        addq    $40, %rdx
+        movq    %rdx, -104(%rsp)
+        subsd   40(%rax), %xmm1
+        mulsd   -40(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movq    %rcx, %rdx
+        addq    $48, %rdx
+        movq    %rdx, -96(%rsp)
+        movsd   48(%rcx), %xmm1
+        movq    %rax, %rcx
+        addq    $48, %rcx
+        movq    %rcx, -88(%rsp)
+        subsd   48(%rax), %xmm1
+        mulsd   -48(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, -56(%rsp)
+        movsd   -56(%rsp), %xmm0
+        xorps   %xmm1, %xmm1
+        ucomisd %xmm1, %xmm0
+        ja      .LBB1_4
+        movq    -88(%rsp), %rax
+        movq    -104(%rsp), %rcx
+        movq    -120(%rsp), %rdx
+        movq    -96(%rsp), %rsi
+        movq    -112(%rsp), %rdi
+        movq    -128(%rsp), %r8
+        movq    -72(%rsp), %r9
+        movq    -80(%rsp), %r10
+        movsd   .LCPI1_1(%rip), %xmm0
+        divsd   (%r10), %xmm0
+        movsd   %xmm0, -16(%rsp)
+        movsd   .LCPI1_1(%rip), %xmm0
+        divsd   (%r9), %xmm0
+        movsd   %xmm0, -24(%rsp)
+        movsd   .LCPI1_1(%rip), %xmm0
+        addsd   32(%rsp), %xmm0
+        mulsd   -56(%rsp), %xmm0
+        movsd   -16(%rsp), %xmm1
+        addsd   -24(%rsp), %xmm1
+        divsd   %xmm1, %xmm0
+        movq    %xmm0, %r9
+        movabsq $-9223372036854775808, %r10
+        xorq    %r10, %r9
+        movq    %r9, %xmm0
+        movsd   %xmm0, -8(%rsp)
+        movsd   (%r8), %xmm0
+        movsd   -8(%rsp), %xmm1
+        mulsd   -16(%rsp), %xmm1
+        mulsd   -32(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, (%r8)
+        movsd   (%rdi), %xmm0
+        movsd   -8(%rsp), %xmm1
+        mulsd   -16(%rsp), %xmm1
+        mulsd   -40(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, (%rdi)
+        movsd   (%rsi), %xmm0
+        movsd   -8(%rsp), %xmm1
+        mulsd   -16(%rsp), %xmm1
+        mulsd   -48(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, (%rsi)
+        movsd   (%rdx), %xmm0
+        movsd   -8(%rsp), %xmm1
+        mulsd   -24(%rsp), %xmm1
+        mulsd   -32(%rsp), %xmm1
+        subsd   %xmm1, %xmm0
+        movsd   %xmm0, (%rdx)
+        movsd   (%rcx), %xmm0
+        movsd   -8(%rsp), %xmm1
+        mulsd   -24(%rsp), %xmm1
+        mulsd   -40(%rsp), %xmm1
+        subsd   %xmm1, %xmm0
+        movsd   %xmm0, (%rcx)
+        movsd   (%rax), %xmm0
+        movsd   -8(%rsp), %xmm1
+        mulsd   -24(%rsp), %xmm1
+        mulsd   -48(%rsp), %xmm1
+        subsd   %xmm1, %xmm0
+        movsd   %xmm0, (%rax)
+.LBB1_4:
+        addq    $40, %rsp
+        retq
+
+update_position:
+        movsd   %xmm0, -8(%rsp)
+        movsd   8(%rdi), %xmm0
+        movsd   32(%rdi), %xmm1
+        mulsd   -8(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, 8(%rdi)
+        movsd   16(%rdi), %xmm0
+        movsd   40(%rdi), %xmm1
+        mulsd   -8(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, 16(%rdi)
+        movsd   24(%rdi), %xmm0
+        movsd   48(%rdi), %xmm1
+        mulsd   -8(%rsp), %xmm1
+        addsd   %xmm1, %xmm0
+        movsd   %xmm0, 24(%rdi)
+        retq
+
+_QMphysics_moduleE.n.mass_kg:
+        .ascii  "mass_kg"
+
+_QMphysics_moduleE.n.com_x:
+        .ascii  "com_x"
+
+_QMphysics_moduleE.n.com_y:
+        .ascii  "com_y"
+
+_QMphysics_moduleE.n.com_z:
+        .ascii  "com_z"
+
+_QMphysics_moduleE.n.vel_x:
+        .ascii  "vel_x"
+
+_QMphysics_moduleE.n.vel_y:
+        .ascii  "vel_y"
+
+_QMphysics_moduleE.n.vel_z:
+        .ascii  "vel_z"
+
+_QMphysics_moduleE.n.body_t:
+        .ascii  "body_t"
+
+_QMphysics_moduleECepsilon:
+        .quad   0x3d719799812dea11
+
+_QMphysics_moduleECmicrogram_to_kg:
+        .quad   0x3e112e0be826d695
+
+_QMphysics_moduleE.c.body_t:
+        .quad   _QMphysics_moduleE.n.mass_kg
+        .quad   7
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   0
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
+        .quad   _QMphysics_moduleE.n.com_x
+        .quad   5
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   8
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
+        .quad   _QMphysics_moduleE.n.com_y
+        .quad   5
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   16
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
+        .quad   _QMphysics_moduleE.n.com_z
+        .quad   5
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   24
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
+        .quad   _QMphysics_moduleE.n.vel_x
+        .quad   5
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   32
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
+        .quad   _QMphysics_moduleE.n.vel_y
+        .quad   5
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   40
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
+        .quad   _QMphysics_moduleE.n.vel_z
+        .quad   5
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   48
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
+
+_QMphysics_moduleE.dt.body_t:
+        .quad   0
+        .quad   0+32
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+32
+        .quad   0
+        .zero   8
+        .quad   _QMphysics_moduleE.n.body_t
+        .quad   6
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .quad   56
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+8
+        .long   20180515
+        .byte   1
+        .byte   10
+        .byte   1
+        .byte   0
+        .quad   1
+        .quad   0
+        .quad   0+8
+        .quad   0
+        .quad   0+1
+        .long   20180515
+        .byte   1
+        .byte   7
+        .byte   1
+        .byte   0
+        .quad   1
+        .quad   0
+        .quad   0+1
+        .quad   _QMphysics_moduleE.c.body_t
+        .quad   0+256
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .quad   7
+        .quad   0+256
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+40
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+40
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .long   0
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   1
+        .zero   4
+        .zero   4
+
+_QM__fortran_builtinsE.dt.__builtin_c_funptr:
+        .quad   0
+        .quad   0+32
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+32
+        .quad   0
+        .zero   8
+        .quad   _QM__fortran_builtinsE.n.__builtin_c_funptr
+        .quad   18
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .quad   8
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+8
+        .long   20180515
+        .byte   1
+        .byte   10
+        .byte   1
+        .byte   0
+        .quad   1
+        .quad   0
+        .quad   0+8
+        .quad   0
+        .quad   0+1
+        .long   20180515
+        .byte   1
+        .byte   7
+        .byte   1
+        .byte   0
+        .quad   1
+        .quad   0
+        .quad   0+1
+        .quad   _QM__fortran_builtinsE.c.__builtin_c_funptr
+        .quad   0+256
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .quad   1
+        .quad   0+256
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+40
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+40
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .long   0
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   1
+        .zero   4
+        .zero   4
+
+_QM__fortran_builtinsE.n.__builtin_c_funptr:
+        .ascii  "__builtin_c_funptr"
+
+_QM__fortran_builtinsE.c.__builtin_c_funptr:
+        .quad   _QM__fortran_builtinsE.n.__address
+        .quad   9
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   0
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   0
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
+
+_QM__fortran_builtinsE.n.__address:
+        .ascii  "__address"
+
+_QM__fortran_builtinsE.dt.__builtin_c_ptr:
+        .quad   0
+        .quad   0+32
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+32
+        .quad   0
+        .zero   8
+        .quad   _QM__fortran_builtinsE.n.__builtin_c_ptr
+        .quad   15
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .quad   8
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+8
+        .long   20180515
+        .byte   1
+        .byte   10
+        .byte   1
+        .byte   0
+        .quad   1
+        .quad   0
+        .quad   0+8
+        .quad   0
+        .quad   0+1
+        .long   20180515
+        .byte   1
+        .byte   7
+        .byte   1
+        .byte   0
+        .quad   1
+        .quad   0
+        .quad   0+1
+        .quad   _QM__fortran_builtinsE.c.__builtin_c_ptr
+        .quad   0+256
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .quad   1
+        .quad   0+256
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+40
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+40
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .long   0
+        .byte   0
+        .byte   1
+        .byte   1
+        .byte   1
+        .zero   4
+        .zero   4
+
+_QM__fortran_builtinsE.n.__builtin_c_ptr:
+        .ascii  "__builtin_c_ptr"
+
+_QM__fortran_builtinsE.c.__builtin_c_ptr:
+        .quad   _QM__fortran_builtinsE.n.__address
+        .quad   9
+        .long   20180515
+        .byte   0
+        .byte   40
+        .byte   1
+        .byte   0
+        .byte   1
+        .byte   0
+        .byte   8
+        .byte   0
+        .zero   4
+        .quad   0
+        .byte   1
+        .zero   7
+        .quad   0
+        .quad   0
+        .quad   0+440
+        .long   20180515
+        .byte   0
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   1
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   0
+        .zero   8
+        .quad   0
+        .quad   0+16
+        .long   20180515
+        .byte   2
+        .byte   42
+        .byte   1
+        .byte   1
+        .quad   1
+        .quad   0
+        .quad   0+16
+        .quad   1
+        .quad   0
+        .quad   0
+        .quad   0
+        .zero   8
+        .zero   8
