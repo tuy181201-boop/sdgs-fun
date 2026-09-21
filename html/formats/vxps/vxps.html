@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SDGS — Воксельные модели, генерируемые Pascal-скриптом.">
+<meta name="keywords" content="SDGS, vxps, Генеративные">
+<title>SDGS — Формат .vxps</title>
+<link rel="stylesheet" href="../../css/index.css">
+<style>
+    .breadcrumbs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .4rem;
+        align-items: center;
+        font-size: .85rem;
+        color: var(--text-dim);
+        margin-bottom: 1.5rem;
+    }
+    .breadcrumbs a { color: var(--accent); }
+    .breadcrumbs .sep { color: var(--text-muted); }
+    .subpage-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        margin: 1rem 0 2rem;
+    }
+    .subpage-meta span {
+        font-size: .8rem;
+        color: var(--text-dim);
+        background: var(--bg-panel);
+        padding: .3rem .8rem;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+    }
+    .subpage-meta span b { color: var(--text); font-weight: 600; }
+    .placeholder {
+        border: 1px dashed var(--border);
+        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        color: var(--text-muted);
+        background: rgba(42,58,102,.08);
+        font-style: italic;
+        margin: 1rem 0;
+    }
+    .nav-prev-next {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+    }
+    .nav-prev-next a {
+        display: inline-block;
+        padding: .6rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text);
+        transition: .2s;
+        max-width: 48%;
+    }
+    .nav-prev-next a:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        text-decoration: none;
+    }
+    .nav-prev-next .disabled {
+        visibility: hidden;
+    }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
+
+<aside class="sidebar" id="sidebar" aria-label="Основная навигация">
+    <h1><a href="../../index.html" style="color:inherit;text-decoration:none;">🌍 SDGS</a></h1>
+    <div class="version">Документация · v1.0</div>
+    <nav>
+        <ol>
+<li><a href="../../index.html#overview">Обзор проекта</a></li>
+<li><a href="../../index.html#architecture">Архитектура</a></li>
+<li><a href="../../index.html#formats">Форматы данных</a></li>
+<li><a href="../../index.html#languages">Языки программирования</a></li>
+<li><a href="../../index.html#determinism">Детерминизм и LCG</a></li>
+<li><a href="../../index.html#pascal">Pascal-скрипты</a></li>
+<li><a href="../../index.html#binary">Бинарный формат</a></li>
+<li><a href="../../index.html#music">TrackScript</a></li>
+<li><a href="../../index.html#camera">Модуль камеры</a></li>
+<li><a href="../../index.html#physics">Физика на Fortran</a></li>
+<li><a href="../../index.html#web">Веб-инструменты</a></li>
+<li><a href="../../index.html#website">Сайт sdgs.fun</a></li>
+<li><a href="../../index.html#hardware">Требования к железу</a></li>
+<li><a href="../../index.html#console">Консольная версия</a></li>
+<li><a href="../../index.html#roadmap">Дорожная карта</a></li>
+<li style="margin-top:.8rem;"><a href="../index.html" style="color:var(--accent);font-weight:600;">← Все форматы</a></li>
+        </ol>
+    </nav>
+</aside>
+
+<main>
+
+<nav class="breadcrumbs">
+    <a href="../../index.html">Главная</a>
+    <span class="sep">›</span>
+    <a href="../index.html">Все форматы</a>
+    <span class="sep">›</span>
+    <span>Формат .vxps</span>
+</nav>
+
+<header class="doc-header">
+    <h1>Формат .vxps</h1>
+    <p class="doc-lead">Воксельные модели, генерируемые Pascal-скриптом.</p>
+    <div class="subpage-meta">
+        <span><b>Расширение:</b> .vxps</span><span><b>Категория:</b> Генеративные</span><span><b>Размерность:</b> 3D</span>
+    </div>
+</header>
+
+<section class="section">
+<h2>Описание</h2>
+<p>
+    Формат <code>.vxps</code> (VXPS) относится к категории
+    <strong>Генеративные</strong>. Воксельные модели, генерируемые Pascal-скриптом.
+</p>
+<div class="placeholder">
+    ✏️ Раздел будет дополнен: подробное назначение, история, роль в архитектуре SDGS.
+</div>
+</section>
+
+<section class="section">
+<h2>Спецификация</h2>
+<table>
+    <thead>
+        <tr><th>Поле</th><th>Значение</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Расширение</td><td><code>.vxps</code></td></tr>
+        <tr><td>Имя</td><td>VXPS</td></tr>
+        <tr><td>Категория</td><td>Генеративные</td></tr>
+        <tr><td>Размерность</td><td>3D</td></tr>
+        <tr><td>Кодировка</td><td>бинарный / текстовый (уточнить)</td></tr>
+        <tr><td>Связанные модули</td><td>BufferManager, ScriptManager, DNAParser</td></tr>
+    </tbody>
+</table>
+<div class="placeholder">
+    ✏️ Здесь появится полная таблица полей формата, порядок байтов, примеры.
+</div>
+</section>
+
+<section class="section">
+<h2>Пример</h2>
+<div class="code-block">
+    <span class="lang">VXPS</span>
+<pre>// Пример будет добавлен
+</pre>
+</div>
+</section>
+
+<section class="section">
+<h2>Связанные ресурсы</h2>
+<ul>
+    <li><a href="../../index.html#formats">Все форматы данных</a></li>
+    <li><a href="../../index.html#binary">Бинарный формат ресурсов</a></li>
+    <li><a href="../../index.html#pascal">Pascal-скрипты</a></li>
+</ul>
+</section>
+
+<div class="nav-prev-next">
+    <span class="disabled"></span>
+    <a href="../anps/anps.html">.anps →</a>
+</div>
+
+<footer class="footer">
+    <p>SDGS — System Distributed Game Server · Документация v1.0</p>
+</footer>
+
+</main>
+
+<button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+
+<script src="../../js/subpage.js"></script>
+
+</body>
+</html>

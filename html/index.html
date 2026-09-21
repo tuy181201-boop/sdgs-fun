@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SDGS — Полная техническая документация проекта">
+    <meta name="keywords" content="SDGS, ESP32, STM32, воксели, детерминизм, LLVM IR, Pascal, Fortran">
+    <title>SDGS — Полная документация проекта</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<!-- ============================================================
+     БОКОВОЕ МЕНЮ
+     ============================================================ -->
+<button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
+
+<aside class="sidebar" id="sidebar" aria-label="Основная навигация">
+    <h1>🌍 SDGS</h1>
+    <div class="version">System Distributed Game Server · v1.0</div>
+    <nav>
+        <ol>
+            <li><a href="#overview">Обзор проекта</a></li>
+            <li><a href="#architecture">Архитектура</a></li>
+            <li><a href="#formats">Форматы данных</a></li>
+            <li><a href="#languages">Языки программирования</a></li>
+            <li><a href="#determinism">Детерминизм и LCG</a></li>
+            <li><a href="#pascal">Pascal-скрипты</a></li>
+            <li><a href="#binary">Бинарный формат</a></li>
+            <li><a href="#music">TrackScript (музыка)</a></li>
+            <li><a href="#camera">Модуль камеры</a></li>
+            <li><a href="#physics">Физика на Fortran</a></li>
+            <li><a href="#web">Веб-инструменты</a></li>
+            <li><a href="#website">Сайт sdgs.fun</a></li>
+            <li><a href="#hardware">Требования к железу</a></li>
+            <li><a href="#console">Консольная версия</a></li>
+            <li><a href="#roadmap">Дорожная карта</a></li>
+        </ol>
+    </nav>
+</aside>
+
+<!-- ============================================================
+     ОСНОВНОЙ КОНТЕНТ
+     ============================================================ -->
+<main>
+
+<header class="doc-header">
+    <h1>SDGS — Полная документация проекта</h1>
+    <p class="doc-lead">
+        Автономная платформа для живых, детерминированных игровых миров без облачных серверов и интернета.
+    </p>
+    <div class="meta">
+        <span>Автор: Куралесенко Д. В.</span>
+        <span>Версия: 1.0</span>
+        <span>Дата: сентябрь 2026</span>
+        <span>Лицензия: MIT</span>
+    </div>
+</header>
+
+<!-- ============================================================ -->
+<section class="section" id="overview">
+<h2>1. Обзор проекта</h2>
+
+<p>
+    <strong>SDGS</strong> (System Distributed Game Server) — платформа для создания
+    <strong>живых, автономных игровых миров</strong> без облачных серверов и обязательного интернета.
+    Работает на кластере микроконтроллеров (ESP32, Arduino) и имеет монолитное ядро для Win7+.
+</p>
+
+<h3>Три значения аббревиатуры</h3>
+<div class="card-grid">
+    <div class="card">
+        <h4>🔧 Synchronized Deterministic Game System</h4>
+        <p>Инженерное значение: система синхронизированного детерминированного игрового процесса.</p>
+    </div>
+    <div class="card">
+        <h4>🧬 Self-Discovering Generative Sandbox</h4>
+        <p>Моддерское значение: самопознающая генеративная песочница.</p>
+    </div>
+    <div class="card">
+        <h4>📖 Stories Dreamed Game Spaces</h4>
+        <p>Игровое значение: игровые пространства, рождаемые историями.</p>
+    </div>
+</div>
+
+<h3>Ключевые принципы</h3>
+<ul>
+    <li><strong>Автономность</strong> — работа без интернета, питание от аккумулятора, связь 4G.</li>
+    <li><strong>Детерминизм</strong> — фиксированная физика 60 Гц, 64-битный LCG, Fixed48_20.</li>
+    <li><strong>Открытость</strong> — все форматы документированы (ZIP+JSON).</li>
+    <li><strong>Мультиязычность</strong> — 22 языка + LLVM IR.</li>
+    <li><strong>Мультиплатформенность</strong> — ESP32, Win7+, Android, iOS.</li>
+</ul>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="architecture">
+<h2>2. Архитектура</h2>
+
+<h3>Железная платформа (кластер ESP32)</h3>
+<table>
+    <thead>
+        <tr><th>Чип</th><th>Роль</th><th>Прошивка</th><th>Статус</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>ESP32-S3</td><td>Маршрутизатор</td><td><code>router.bin</code></td><td>✅</td></tr>
+        <tr><td>ESP32-P4 #1</td><td>Хранитель Земли (ландшафт)</td><td><code>land.bin</code></td><td>✅</td></tr>
+        <tr><td>ESP32-P4 #2</td><td>Хранитель Жизни (NPC)</td><td><code>life.bin</code></td><td>✅</td></tr>
+        <tr><td>ESP32-P4 #3</td><td>Хранитель Разума (AI, физика)</td><td><code>mind.bin</code></td><td>✅</td></tr>
+        <tr><td>ESP32-C5</td><td>Голос Мира (шлюз)</td><td><code>gateway.bin</code></td><td>✅</td></tr>
+    </tbody>
+</table>
+
+<h3>Монолитное ядро Win7+ (C++20)</h3>
+<table>
+    <thead>
+        <tr><th>Модуль</th><th>Назначение</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><code>LandModule</code></td><td>Ландшафт, SWT, LOD</td></tr>
+        <tr><td><code>LifeModule</code></td><td>NPC, экономика, медицина</td></tr>
+        <tr><td><code>MindModule</code></td><td>Физика, AI (CLIPS, Lisp), скрипты</td></tr>
+        <tr><td><code>NetworkModule</code></td><td>WebSocket, HTTP, REST API</td></tr>
+        <tr><td><code>UIModule</code></td><td>Рендеринг (OpenGL/Vulkan), шейдеры</td></tr>
+        <tr><td><code>ShaderManager</code></td><td>Загрузка GLSL-шейдеров</td></tr>
+        <tr><td><code>VoxelRenderer</code></td><td>Рендеринг VXL с инстансингом</td></tr>
+        <tr><td><code>LandscapeRenderer</code></td><td>Рендеринг SWT-ландшафта</td></tr>
+        <tr><td><code>FontRenderer</code></td><td>Рендеринг воксельных шрифтов</td></tr>
+        <tr><td><code>EFXRenderer</code></td><td>Постобработка (bloom, DOF, SSAO)</td></tr>
+        <tr><td><code>BufferManager</code></td><td>Распаковка ZIP, LRU-кэш, B/C/L/M</td></tr>
+        <tr><td><code>ScriptManager</code></td><td>22 языка + LLVM IR</td></tr>
+        <tr><td><code>PythonBridge</code></td><td>Мост к Python AI Core (pybind11)</td></tr>
+        <tr><td><code>DNAParser</code></td><td>Парсинг генома мира (<a href="formats/dna/dna.html">.dna</a>)</td></tr>
+    </tbody>
+</table>
+
+<h3>Структура файловой системы (microSD exFAT)</h3>
+<ul>
+    <li><strong>B/</strong> — буфер (кэш, временные файлы, скомпилированные DLL).</li>
+    <li><strong>C/</strong> — ядро (прошивки, конфиги, скрипты).</li>
+    <li><strong>L/</strong> — NPC, экономика, квесты, диалоги, музыка.</li>
+    <li><strong>M/</strong> — 3D-мир (ландшафт, модели, анимации).</li>
+</ul>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="formats">
+<h2>3. Форматы данных (38 расширений)</h2>
+
+<h3>Генеративные (Pascal-скрипты)</h3>
+<table>
+    <thead>
+        <tr><th>Формат</th><th>Размерность</th><th>Назначение</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="formats/vxps/vxps.html"><code>.vxps</code></a></td><td>3D</td><td>Воксельные модели</td></tr>
+        <tr><td><a href="formats/anps/anps.html"><code>.anps</code></a></td><td>4D</td><td>Анимации (время + пространство)</td></tr>
+        <tr><td><a href="formats/wtps/wtps.html"><code>.wtps</code></a></td><td>5D</td><td>Ландшафт (чанки, высоты)</td></tr>
+        <tr><td><a href="formats/efxps/efxps.html"><code>.efxps</code></a></td><td>5D</td><td>Эффекты (взрывы, огонь, магия)</td></tr>
+        <tr><td><a href="formats/fldps/fldps.html"><code>.fldps</code></a></td><td>6D</td><td>Физические поля (ветер, вода)</td></tr>
+        <tr><td><a href="formats/genps/genps.html"><code>.genps</code></a></td><td>7D+</td><td>Генеративные модели</td></tr>
+    </tbody>
+</table>
+
+<h3>Системные (логика)</h3>
+<table>
+    <thead>
+        <tr><th>Формат</th><th>Назначение</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="formats/krl/krl.html"><code>.krl</code></a></td><td>Поведение NPC (конечные автоматы)</td></tr>
+        <tr><td><a href="formats/ql/ql.html"><code>.ql</code></a></td><td>Квесты</td></tr>
+        <tr><td><a href="formats/dl/dl.html"><code>.dl</code></a></td><td>Диалоги</td></tr>
+        <tr><td><a href="formats/lg/lg.html"><code>.lg</code></a></td><td>Правила мира</td></tr>
+        <tr>
+            <td>
+                <a href="formats/mood/mood.html"><code>.mood</code></a>,
+                <a href="formats/lineage/lineage.html"><code>.lineage</code></a>,
+                <a href="formats/echo/echo.html"><code>.echo</code></a>,
+                <a href="formats/legacy/legacy.html"><code>.legacy</code></a>
+            </td>
+            <td>Эволюционные данные</td>
+        </tr>
+        <tr>
+            <td>
+                <a href="formats/event/event.html"><code>.event</code></a>,
+                <a href="formats/rule/rule.html"><code>.rule</code></a>,
+                <a href="formats/dream/dream.html"><code>.dream</code></a>
+            </td>
+            <td>События и сны мира</td>
+        </tr>
+        <tr>
+            <td>
+                <a href="formats/state/state.html"><code>.state</code></a>,
+                <a href="formats/mod/mod.html"><code>.mod</code></a>,
+                <a href="formats/proto/proto.html"><code>.proto</code></a>
+            </td>
+            <td>Состояния и моды</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Бинарные (результат генерации)</h3>
+<table>
+    <thead>
+        <tr><th>Формат</th><th>Назначение</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="formats/vxl/vxl.html"><code>.vxl</code></a></td><td>Воксельные модели (RGBA)</td></tr>
+        <tr><td><a href="formats/swt/swt.html"><code>.swt</code></a></td><td>Структурированный ландшафт (ZIP+JSON)</td></tr>
+        <tr><td><a href="formats/anim/anim.html"><code>.anim</code></a></td><td>Воксельные анимации</td></tr>
+        <tr><td><a href="formats/efx/efx.html"><code>.efx</code></a></td><td>Составные эффекты</td></tr>
+        <tr><td><a href="formats/scl/scl.html"><code>.scl</code></a></td><td>Коллизии</td></tr>
+        <tr><td><a href="formats/smp/smp.html"><code>.smp</code></a></td><td>Мод-пакеты</td></tr>
+    </tbody>
+</table>
+
+<h3>Мультимедиа и реестры</h3>
+<ul>
+    <li>
+        <a href="formats/snd/snd.html"><code>.snd</code></a>,
+        <a href="formats/vid/vid.html"><code>.vid</code></a>,
+        <a href="formats/scn/scn.html"><code>.scn</code></a>,
+        <a href="formats/seq/seq.html"><code>.seq</code></a>,
+        <a href="formats/menu/menu.html"><code>.menu</code></a>
+        — аудио, видео, сцены, интерфейсы.
+    </li>
+    <li>
+        <a href="formats/chem/chem.html"><code>.chem</code></a>,
+        <a href="formats/med/med.html"><code>.med</code></a>,
+        <a href="formats/rec/rec.html"><code>.rec</code></a>,
+        <a href="formats/law16/law16.html"><code>.law16</code></a>
+        — химия и медицина.
+    </li>
+    <li>
+        <a href="formats/rgs/rgs.html"><code>.rgs</code></a>,
+        <a href="formats/assoc/assoc.html"><code>.assoc</code></a>,
+        <a href="formats/meta/meta.html"><code>.meta</code></a>
+        — реестры, ассоциации, метаданные.
+    </li>
+    <li>
+        <a href="formats/vfont/vfont.html"><code>.vfont</code></a>,
+        <a href="formats/afont/afont.html"><code>.afont</code></a>
+        — воксельные и альтернативные шрифты.
+    </li>
+    <li><a href="formats/dna/dna.html"><code>.dna</code></a> — геном мира (Pascal).</li>
+    <li><a href="formats/ts/ts.html"><code>.ts</code></a> — TrackScript (музыка).</li>
+    <li><a href="formats/imgps/imgps.html"><code>.imgps</code></a> — генерация текстур (RGB).</li>
+</ul>
+
+<h3>Размеры вокселей</h3>
+<table>
+    <thead>
+        <tr><th>Тип</th><th>Размер</th><th>Применение</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Объекты</td><td><code>√10/10 мм ≈ 0.316 мм</code></td><td>Модели, NPC, архитектура</td></tr>
+        <tr><td>Ландшафт</td><td><code>20√10 см ≈ 63.2 см</code></td><td>Террейн, горы, реки</td></tr>
+    </tbody>
+</table>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="languages">
+<h2>4. Языки программирования (22 + LLVM IR)</h2>
+
+<table>
+    <thead>
+        <tr><th>Язык</th><th>Расширение</th><th>Роль в SDGS</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Lisp</td>
+            <td><a href="languages/lsp/lsp.html"><code>.lsp</code></a></td>
+            <td>AI Core, метапрограммирование</td>
+        </tr>
+        <tr>
+            <td>Fortran</td>
+            <td><a href="languages/f/f.html"><code>.f</code></a></td>
+            <td>Физика, химия, симуляции</td>
+        </tr>
+        <tr>
+            <td>COBOL</td>
+            <td><a href="languages/cbl/cbl.html"><code>.cbl</code></a></td>
+            <td>Экономика, справочники</td>
+        </tr>
+        <tr>
+            <td>BASIC</td>
+            <td><a href="languages/bas/bas.html"><code>.bas</code></a></td>
+            <td>Прототипы, обучение</td>
+        </tr>
+        <tr>
+            <td>APL</td>
+            <td><a href="languages/apl/apl.html"><code>.apl</code></a></td>
+            <td>Массивы, матрицы</td>
+        </tr>
+        <tr>
+            <td>SNOBOL</td>
+            <td><a href="languages/sn/sn.html"><code>.sn</code></a></td>
+            <td>Диалоги, строки</td>
+        </tr>
+        <tr>
+            <td>Simula</td>
+            <td><a href="languages/sim/sim.html"><code>.sim</code></a></td>
+            <td>ООП, иерархия NPC</td>
+        </tr>
+        <tr>
+            <td>Pascal</td>
+            <td><a href="languages/pas/pas.html"><code>.pas</code></a></td>
+            <td>Геном мира, структурные скрипты</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td><a href="languages/c/c.html"><code>.c</code></a></td>
+            <td>Критичная производительность</td>
+        </tr>
+        <tr>
+            <td>Forth</td>
+            <td><a href="languages/fth/fth.html"><code>.fth</code></a></td>
+            <td>Низкоуровневое управление</td>
+        </tr>
+        <tr>
+            <td>Rust</td>
+            <td><a href="languages/rs/rs.html"><code>.rs</code></a></td>
+            <td>Безопасные модули (FFI)</td>
+        </tr>
+        <tr>
+            <td>Erlang</td>
+            <td><a href="languages/erl/erl.html"><code>.erl</code></a></td>
+            <td>Параллельные реакции</td>
+        </tr>
+        <tr>
+            <td>Lua</td>
+            <td><a href="languages/lua/lua.html"><code>.lua</code></a></td>
+            <td>Универсальный скриптинг</td>
+        </tr>
+        <tr>
+            <td>Fennel</td>
+            <td><a href="languages/fnl/fnl.html"><code>.fnl</code></a></td>
+            <td>Lisp на Lua</td>
+        </tr>
+        <tr>
+            <td>MoonScript</td>
+            <td><a href="languages/moon/moon.html"><code>.moon</code></a></td>
+            <td>Python-подобный синтаксис</td>
+        </tr>
+        <tr>
+            <td>Luau</td>
+            <td><a href="languages/luau/luau.html"><code>.luau</code></a></td>
+            <td>Lua с типами</td>
+        </tr>
+        <tr>
+            <td>MetaLua</td>
+            <td><a href="languages/meta/meta.html"><code>.meta</code></a></td>
+            <td>Генерация кода</td>
+        </tr>
+        <tr>
+            <td>GSL Shell</td>
+            <td><a href="languages/gsl/gsl.html"><code>.gsl</code></a></td>
+            <td>Научные вычисления</td>
+        </tr>
+        <tr>
+            <td>LLVM-Lua</td>
+            <td><a href="languages/llvm/llvm.html"><code>.llvm</code></a></td>
+            <td>JIT/AOT-компиляция</td>
+        </tr>
+        <tr>
+            <td>CLIPS</td>
+            <td><a href="languages/clp/clp.html"><code>.clp</code></a></td>
+            <td>Экспертные системы NPC</td>
+        </tr>
+        <tr>
+            <td>Python</td>
+            <td><a href="languages/py/py.html"><code>.py</code></a></td>
+            <td>AI Core, VFX-автоматизация</td>
+        </tr>
+        <tr>
+            <td>Wolfram Language</td>
+            <td><a href="languages/wl/wl.html"><code>.wl</code></a></td>
+            <td>Символьное проектирование</td>
+        </tr>
+        <tr>
+            <td><strong>LLVM IR</strong></td>
+            <td>
+                <a href="languages/ll/ll.html"><code>.ll</code></a> /
+                <a href="languages/bc/bc.html"><code>.bc</code></a>
+            </td>
+            <td>Единое промежуточное представление</td>
+        </tr>
+    </tbody>
+</table>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="determinism">
+<h2>5. Детерминизм и LCG</h2>
+
+<p>
+    Для обеспечения воспроизводимости мира на всех платформах используется
+    <strong>64-битный линейный конгруэнтный генератор (LCG)</strong>.
+</p>
+
+<h3>Параметры LCG</h3>
+<table>
+    <thead>
+        <tr><th>Параметр</th><th>Значение</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Модуль <code>m</code></td><td><code>2^64</code></td></tr>
+        <tr><td>Множитель <code>a</code></td><td><code>0x9E3779B97F4A7C15</code></td></tr>
+        <tr><td>Приращение <code>c</code></td><td><code>0xBF58476D1CE4E5B9</code></td></tr>
+        <tr><td>Период</td><td><code>2^64 ≈ 1.8 × 10^19</code></td></tr>
+    </tbody>
+</table>
+
+<p>Формула: <code>X_{n+1} = (a * X_n + c) mod 2^64</code></p>
+
+<h3>Применение</h3>
+<ul>
+    <li>Генерация мира (<a href="formats/wtps/wtps.html">WTPS</a>, <a href="formats/vxps/vxps.html">VXPS</a>) — сид региона = мир_сид + координаты.</li>
+    <li>Поведение NPC — каждое NPC имеет свой LCG от UID.</li>
+    <li>Экономика — колебания цен, спрос.</li>
+    <li>Квесты — выбор целей и наград.</li>
+    <li>Физика — начальные условия для симуляций.</li>
+    <li>Музыка (<a href="formats/ts/ts.html">TrackScript</a>) — генерация вариаций.</li>
+</ul>
+
+<h3>Fixed48_20</h3>
+<p>
+    Все физические вычисления ведутся в формате
+    <strong>Fixed48_20</strong> (48 бит целая часть, 20 бит дробная) —
+    для полного детерминизма на всех платформах.
+</p>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="pascal">
+<h2>6. Pascal-скрипты</h2>
+
+<p>
+    Pascal-скрипты — это <strong>голографические базы данных</strong>,
+    где код и данные неразделимы. Скрипт описывает алгоритм генерации,
+    а при выполнении создаётся бинарный слепок.
+</p>
+
+<h3>Обязательная структура</h3>
+<div class="code-block">
+    <span class="lang">Pascal</span>
+<pre>program &lt;32-hex-UID&gt;;
+
+uses
+  &lt;библиотеки&gt;;
+
+type
+  TMyData = record ... end;
+  TMyArray = array[...] of ...;
+
+var
+  MyArray: TMyArray;
+
+implementation
+  // Вспомогательные процедуры
+
+begin
+  GenerateData;
+  SaveToFile('data.bin');
+end.</pre>
+</div>
+
+<h3>KRL — поведение NPC</h3>
+<div class="code-block">
+    <span class="lang">KRL</span>
+<pre>entity Wolf {
+    state idle {
+        on_enter: play_anim("wolf_idle.anim");
+        transition: if (player.distance &lt; 10) -&gt; chase;
+        transition: if (health &lt; 20) -&gt; flee;
+    }
+    state chase {
+        action: move_to(player.position);
+        transition: if (player.distance &lt; 2) -&gt; attack;
+    }
+    state attack {
+        action: attack(player, damage = 5);
+        transition: after(1.0) -&gt; chase;
+    }
+}</pre>
+</div>
+
+<h3>QL — квесты</h3>
+<div class="code-block">
+    <span class="lang">QL</span>
+<pre>quest "FindTheCrystal" {
+    description: "Найди кристалл в пещере дракона.";
+    start: talk_to_npc("Elder");
+    objective: collect_item("crystal", 1);
+    on_complete: reward_exp(500);
+    on_complete: reward_items("gold_coin", 100);
+    fail_condition: time_limit(3600);
+}</pre>
+</div>
+
+<h3>DL — диалоги</h3>
+<div class="code-block">
+    <span class="lang">DL</span>
+<pre>dialogue "Elder_Greeting" {
+    node start {
+        text: "Приветствую, путник. Чем могу помочь?";
+        choice {
+            "Расскажи о мире." -&gt; node_about;
+            "Я ищу кристалл." -&gt; node_crystal;
+            "Ничего, спасибо." -&gt; node_end;
+        }
+    }
+    node crystal {
+        text: "Кристалл в пещере на востоке.";
+        action: start_quest("FindTheCrystal");
+        transition: node_end;
+    }
+}</pre>
+</div>
+
+<h3>DNA — геном мира</h3>
+<p>
+    Содержит все глобальные параметры мира: физика, химия, климат, биомы,
+    NPC, экономика, эволюция, медицина, экология, эстетика, камера.
+    Подробнее — в <a href="formats/dna/dna.html">документации формата .dna</a>.
+</p>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="binary">
+<h2>7. Бинарный формат ресурсов</h2>
+
+<p>
+    Все бинарные файлы (<a href="formats/vxl/vxl.html">VXL</a>, <a href="formats/swt/swt.html">SWT</a>, <a href="formats/anim/anim.html">ANIM</a>, <a href="formats/efx/efx.html">EFX</a>, <a href="formats/fldps/fldps.html">FLD</a>) используют единый
+    формат заголовка с <strong>переменными длинами</strong> и поддержкой
+    <strong>любого числа измерений</strong>.
+</p>
+
+<div class="code-block">
+    <span class="lang">Формат</span>
+<pre>[UID (16)] [D (1)] [L₁…L_D] [S₁…S_D] [Data]</pre>
+</div>
+
+<table>
+    <thead>
+        <tr><th>Поле</th><th>Размер</th><th>Описание</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>UID</td><td>16 байт</td><td>Уникальный 128-битный идентификатор</td></tr>
+        <tr><td>D</td><td>1 байт</td><td>Количество измерений (до 255)</td></tr>
+        <tr><td>L<sub>i</sub></td><td>1 байт каждый</td><td>Длина i-го размера</td></tr>
+        <tr><td>S<sub>i</sub></td><td>L<sub>i</sub> байт</td><td>Размер по i-му измерению (big-endian)</td></tr>
+        <tr><td>Data</td><td>∏ S<sub>i</sub> × (байт на элемент)</td><td>Многомерный массив</td></tr>
+    </tbody>
+</table>
+
+<h3>Измерения для VXL (с массой)</h3>
+<ul>
+    <li><strong>D = 4</strong> (X, Y, Z, C)</li>
+    <li><strong>C = 5</strong> (R, G, B, A, Mass — uint64, микрограммы)</li>
+    <li>Размер вокселя: 12 байт (4 + 8)</li>
+</ul>
+
+<h3>Подпрограмма сохранения (Pascal)</h3>
+<div class="code-block">
+    <span class="lang">Pascal</span>
+<pre>procedure SaveVXL(const Filename: string; const Model: TVXLModel);
+var
+    F: file;
+    Header: array[0..28] of byte;
+begin
+    FillChar(Header, SizeOf(Header), 0);
+    Move(Model.UID, Header[0], 16);
+    Header[16] := 4;         // D = 4
+    Header[17] := 1;         // Lx
+    Header[18] := 1;         // Ly
+    Header[19] := 1;         // Lz
+    Header[20] := 1;         // Lc
+    Header[21] := Model.Width;
+    Header[22] := Model.Height;
+    Header[23] := Model.Depth;
+    Header[24] := 5;         // C = 5
+    Assign(F, Filename);
+    Rewrite(F, 1);
+    BlockWrite(F, Header, SizeOf(Header));
+    // ... запись вокселей
+    Close(F);
+end;</pre>
+</div>
+
+<div class="box warning">
+    <strong>⚠️ Теоретический максимум</strong>
+    При <code>D = 255</code> и <code>L = 255</code> заголовок занимает 65 297 байт,
+    а объём данных может достигать <code>10^156600</code> байт — число,
+    превышающее количество атомов во Вселенной (10^80).
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="music">
+<h2>8. TrackScript (музыка)</h2>
+
+<p>
+    <strong>TrackScript</strong> — это DSL для описания музыкальных треков.
+    Подробности — в <a href="formats/ts/ts.html">документации формата .ts</a>.
+    Поддерживает ноты, аккорды, эффекты (включая 8D), модуляции.
+</p>
+
+<h3>Пример трека</h3>
+<div class="code-block">
+    <span class="lang">TrackScript</span>
+<pre>track "8D_Demo" {
+    sections: "verse";
+    tempo: 120;
+    rotation_speed: 0.5;
+    reverb: 0.3;
+
+    part "verse" {
+        node start {
+            action: start_voice(voice="lead", phrase="melody");
+            duration: 32;
+            transition: end;
+        }
+    }
+
+    voice "lead" {
+        phrase melody {
+            note(freq=C4, duration=1, volume=0.8, start=0);
+            note(freq=E4, duration=1, volume=0.8, start=1);
+            note(freq=G4, duration=2, volume=0.8, start=2);
+            transition: after(4) -> melody;
+        }
+    }
+}</pre>
+</div>
+
+<h3>8D-эффект</h3>
+<ul>
+    <li><strong>Вращение панорамы</strong> по синусоиде (динамическое панорамирование).</li>
+    <li><strong>Реверберация</strong> (задержка с затуханием).</li>
+    <li><strong>Квадро-выход</strong> (FL, FR, RL, RR) с задержкой 20 мс для задних каналов.</li>
+</ul>
+
+<h3>Макрос нот</h3>
+<p>
+    Все 120 нот (C0–B9) заданы в файле <code>notes.def</code>,
+    вычислены по формуле <code>440 × 2^((midi-69)/12)</code>.
+</p>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="camera">
+<h2>9. Модуль орбитальной камеры</h2>
+
+<p>
+    Камера реализована на C++20 с использованием Fixed48_20 и LCG для
+    детерминированных микроколебаний.
+</p>
+
+<h3>Параметры</h3>
+<ul>
+    <li>Сферические координаты (radius, yaw, pitch).</li>
+    <li>Плавность (smoothnessPos, smoothnessRot).</li>
+    <li>Чувствительность (sensitivityYaw, sensitivityPitch).</li>
+    <li>Дыхание (enableBreath, breathAmplitude, breathFrequency).</li>
+    <li>Коллизии (enableCollision, collisionOffset).</li>
+</ul>
+
+<h3>Предустановки</h3>
+<table>
+    <thead><tr><th>Пресет</th><th>Назначение</th></tr></thead>
+    <tbody>
+        <tr><td>Default</td><td>Стандартный режим</td></tr>
+        <tr><td>Combat</td><td>Ближе и ниже для боя</td></tr>
+        <tr><td>Dialogue</td><td>Дальше и выше для диалогов</td></tr>
+        <tr><td>Cinematic</td><td>Плавный, для кат-сцен</td></tr>
+        <tr><td>Vehicle</td><td>Для транспорта</td></tr>
+    </tbody>
+</table>
+
+<p>
+    Параметры камеры хранятся в <a href="formats/dna/dna.html">DNA-файле</a>,
+    что делает её частью генома мира и позволяет AI Core изменять её на лету.
+</p>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="physics">
+<h2>10. Физика на Fortran</h2>
+
+<p>
+    Расчёт физики реализован на <strong>Fortran</strong> — для максимальной
+    производительности численных вычислений. Через LLVM IR код компилируется
+    под любую платформу.
+</p>
+
+<h3>Основные подпрограммы</h3>
+<table>
+    <thead><tr><th>Функция</th><th>Назначение</th></tr></thead>
+    <tbody>
+        <tr><td><code>compute_center_of_mass</code></td><td>Центр масс и общая масса по массиву вокселей</td></tr>
+        <tr><td><code>resolve_collision</code></td><td>Разрешение столкновения (импульс, отталкивание)</td></tr>
+        <tr><td><code>update_position</code></td><td>Обновление позиции по скорости</td></tr>
+    </tbody>
+</table>
+
+<h3>Пример на Fortran</h3>
+<div class="code-block">
+    <span class="lang">Fortran</span>
+<pre>subroutine compute_center_of_mass(n, voxel_x, voxel_y, voxel_z, &
+                                  voxel_mass, voxel_size, &
+                                  total_mass, com_x, com_y, com_z) &
+    bind(C, name="compute_center_of_mass")
+    integer(c_int), intent(in), value :: n
+    integer(c_int), intent(in) :: voxel_x(n), voxel_y(n), voxel_z(n)
+    integer(c_int64_t), intent(in) :: voxel_mass(n)
+    real(c_double), intent(in), value :: voxel_size
+    real(c_double), intent(out) :: total_mass, com_x, com_y, com_z
+    ! ...
+end subroutine</pre>
+</div>
+
+<div class="box success">
+    <strong>✅ Детерминизм</strong>
+    Fortran-код сгенерирован через Flang 16.0.6 в LLVM IR, что гарантирует
+    воспроизводимость на всех платформах (x86, ARM, ESP32).
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="web">
+<h2>11. Веб-инструменты</h2>
+
+<div class="card-grid">
+    <div class="card">
+        <h4>🔍 SDGS Explorer</h4>
+        <p>Просмотр <a href="formats/vxl/vxl.html">VXL</a>, <a href="formats/swt/swt.html">SWT</a>, <a href="formats/dna/dna.html">DNA</a>, <a href="formats/rgs/rgs.html">RGS</a>, <a href="formats/vfont/vfont.html">VFONT</a>, <a href="formats/menu/menu.html">MENU</a> в 3D. Использует Three.js r128.</p>
+    </div>
+    <div class="card">
+        <h4>🧊 Voxel Lab</h4>
+        <p>Ручное создание воксельных моделей. ЛКМ — добавить, ПКМ — удалить. Экспорт в <a href="formats/vxps/vxps.html">VXPS</a>, <a href="formats/vxl/vxl.html">VXL</a>, STL.</p>
+    </div>
+    <div class="card">
+        <h4>🎬 ANIM Player</h4>
+        <p>Проигрыватель воксельных анимаций с интерполяцией кадров (<a href="formats/anim/anim.html">.anim</a>).</p>
+    </div>
+</div>
+
+<h3>Технологический стек</h3>
+<ul>
+    <li><strong>HTML5</strong> — семантическая разметка.</li>
+    <li><strong>CSS3</strong> — тёмная тема, glassmorphism, градиенты.</li>
+    <li><strong>JavaScript ES6+</strong> — логика, парсинг форматов.</li>
+    <li><strong>Three.js r128</strong> — 3D-графика, OrbitControls, STLExporter.</li>
+    <li><strong>CDN</strong> — подключение библиотек без сборки.</li>
+</ul>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="website">
+<h2>12. Сайт sdgs.fun</h2>
+
+<h3>Структура</h3>
+<div class="code-block">
+    <span class="lang">Дерево</span>
+<pre>sdgs.fun/
+├── index.html
+├── css/
+│   └── index.css
+├── js/
+│   └── index.js
+├── formats/
+│   ├── vxl/vxl.html
+│   ├── swt/swt.html
+│   ├── anim/anim.html
+│   ├── efx/efx.html
+│   ├── ...
+│   └── dna/dna.html
+└── data/
+    ├── features.json
+    ├── tools.json
+    ├── releases.json
+    └── docs.json</pre>
+</div>
+
+<h3>Разделы сайта</h3>
+<ol>
+    <li><strong>Hero</strong> — заголовок с призывом к действию.</li>
+    <li><strong>Обзор</strong> — описание проекта.</li>
+    <li><strong>Возможности</strong> — список фич (динамически из JSON).</li>
+    <li><strong>Инструменты</strong> — карточки веб-инструментов.</li>
+    <li><strong>Скачать</strong> — релизы для Win, ESP32, Android.</li>
+    <li><strong>Документация</strong> — ссылки на MD-документы.</li>
+    <li><strong>Форматы</strong> — отдельные страницы для каждого расширения (см. <code>formats/</code>).</li>
+</ol>
+
+<h3>Деплой на GitHub Pages</h3>
+<ol>
+    <li>Создать репозиторий на GitHub.</li>
+    <li>Включить GitHub Pages в Settings → Pages (ветка main, папка root).</li>
+    <li>Создать файл <code>CNAME</code> с содержимым <code>sdgs.fun</code>.</li>
+    <li>Настроить DNS: CNAME-запись на <code>tuy181201-boop.github.io</code>.</li>
+</ol>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="hardware">
+<h2>13. Требования к железу</h2>
+
+<h3>Windows 7 SP1 x64</h3>
+<table>
+    <thead>
+        <tr><th>Компонент</th><th>Минимум</th><th>Рекомендуется</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>CPU</td><td>Core 2 Duo, 2 ядра</td><td>Core i5, 4 ядра</td></tr>
+        <tr><td>RAM</td><td>2 ГБ</td><td>8 ГБ</td></tr>
+        <tr><td>GPU</td><td>OpenGL 3.3</td><td>OpenGL 4.5</td></tr>
+        <tr><td>VRAM</td><td>512 МБ</td><td>2 ГБ</td></tr>
+        <tr><td>Диск</td><td>500 МБ</td><td>5 ГБ SSD</td></tr>
+    </tbody>
+</table>
+
+<h3>Windows 10/11 x64</h3>
+<table>
+    <thead>
+        <tr><th>Компонент</th><th>Минимум</th><th>Рекомендуется</th><th>Оптимум</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>CPU</td><td>i3-6100U / Ryzen 3 2200U</td><td>i5-9300H / Ryzen 5 3550H</td><td>i7-12700H / Ryzen 7 6800H</td></tr>
+        <tr><td>RAM</td><td>4 ГБ</td><td>16 ГБ (2×8)</td><td>32 ГБ (2×16)</td></tr>
+        <tr><td>GPU</td><td>Intel HD 520</td><td>GTX 1650 / Iris Xe</td><td>RTX 4060 / RX 7600M</td></tr>
+        <tr><td>API</td><td>OpenGL 4.3</td><td>OpenGL 4.6 + Vulkan 1.2</td><td>Vulkan 1.3 + DXR</td></tr>
+        <tr><td>VRAM</td><td>1 ГБ</td><td>4 ГБ</td><td>8+ ГБ</td></tr>
+        <tr><td>Диск</td><td>1 ГБ HDD</td><td>10 ГБ SSD</td><td>50 ГБ NVMe</td></tr>
+        <tr><td>FPS</td><td>30</td><td>60</td><td>120–144</td></tr>
+    </tbody>
+</table>
+
+<div class="box warning">
+    <strong>⚠️ Важное правило памяти</strong>
+    Используйте <strong>2 плашки</strong> (2×16 ГБ), а не 4×8 ГБ.
+    Двухканальный режим даёт +30–40% производительности.
+    4 плашки заставляют BIOS снижать частоту (до DDR4-2133/2666).
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="console">
+<h2>14. Консольная версия (по модели Sony)</h2>
+
+<p>
+    По аналогии с <strong>PS4 + PSVR Processing Unit</strong>,
+    консольная версия SDGS разделена на <strong>два устройства</strong>.
+</p>
+
+<h3>Устройство 1 — Main Console</h3>
+<ul>
+    <li><strong>Чип:</strong> STM32MP25 (2× Cortex-A35 @ 1.5 ГГц + GPU + NPU).</li>
+    <li><strong>ОС:</strong> Linux.</li>
+    <li><strong>Задачи:</strong> рендеринг 3D (1080p60), AI Core (Python + NPU), интерфейс, сеть (Ethernet + TSN).</li>
+</ul>
+
+<h3>Устройство 2 — Realtime Unit</h3>
+<ul>
+    <li><strong>Чип:</strong> STM32H7 / STM32G4 (Cortex-M33/M7).</li>
+    <li><strong>Задачи:</strong> барьерная синхронизация 60 Гц, Fixed48_20 физика, LCG 64-bit, CAN-FD, GPIO, Watchdog.</li>
+</ul>
+
+<h3>Протокол связи</h3>
+<table>
+    <thead><tr><th>Канал</th><th>Назначение</th><th>Скорость</th></tr></thead>
+    <tbody>
+        <tr><td>SPI</td><td>Основной поток данных</td><td>~5 МБ/с</td></tr>
+        <tr><td>UART</td><td>Команды, лог</td><td>~300 КБ/с</td></tr>
+        <tr><td>GPIO</td><td>Прерывания (VSYNC, TICK)</td><td>~1 МГц</td></tr>
+    </tbody>
+</table>
+
+<div class="box">
+    <strong>💡 Сравнение с Sony</strong>
+    PS5 = APU + Tempest Engine (3D-аудио) + PSSR (AI-апскейлинг).<br>
+    SDGS = Main Console (A35) + Realtime Unit (M33) — аналогичное разделение частот и задач.
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section class="section" id="roadmap">
+<h2>15. Дорожная карта</h2>
+
+<h3>✅ Реализовано</h3>
+<ul>
+    <li>Архитектура железа и прошивки для 5 чипов ESP32.</li>
+    <li>Монолитное ядро Win7+ (C++20) с модулями Land, Life, Mind, Network, UI.</li>
+    <li>38 форматов данных, 22 языка программирования.</li>
+    <li>Документация версии 12.0.</li>
+    <li>Инструменты: SDGS Explorer, Voxel Lab, ANIM Player, конвертеры.</li>
+    <li>Интерпретатор <a href="formats/ts/ts.html">TrackScript</a> с 8D-эффектом.</li>
+    <li>Модуль орбитальной камеры (спроектирован).</li>
+    <li>Полный <a href="formats/dna/dna.html">DNA-файл</a> с параметрами мира и камеры.</li>
+    <li>Fortran-физика через LLVM IR.</li>
+    <li>Отдельные страницы документации для каждого формата (<code>formats/</code>).</li>
+</ul>
+
+<h3>🔄 В разработке</h3>
+<ul>
+    <li>Рендереры (VoxelRenderer, LandscapeRenderer, FontRenderer, EFXRenderer).</li>
+    <li>Полная интеграция <a href="formats/swt/swt.html">SWT</a> в LandModule.</li>
+    <li>AI Core (Python + CLIPS) — базовая интеграция есть.</li>
+    <li>Мобильные клиенты (APK/IPA) — концепция.</li>
+    <li>Магазин модов — лендинг готов, бэкенд нет.</li>
+</ul>
+
+<h3>🚀 Планы</h3>
+<ul>
+    <li>Сборка ядра Win7+ (CMake + vcpkg).</li>
+    <li>Создание тестового мира (<a href="formats/swt/swt.html">SWT</a> + <a href="formats/vxl/vxl.html">VXL</a> + <a href="formats/krl/krl.html">KRL</a> + <a href="formats/ql/ql.html">QL</a>).</li>
+    <li>Тестирование на реальном железе ESP32.</li>
+    <li>Запуск сообщества (Discord, Telegram) и сайта sdgs.fun.</li>
+    <li>Разработка редакторов <a href="formats/krl/krl.html">KRL</a>/<a href="formats/ql/ql.html">QL</a>/<a href="formats/ts/ts.html">TrackScript</a>.</li>
+    <li>Реализация аниме-шейдеров в стиле «Боевого континента» (Douluo Dalu).</li>
+    <li>Мобильные клиенты через Godot/Unity.</li>
+    <li>Консольная версия на STM32MP25 + STM32H7.</li>
+</ul>
+</section>
+
+<!-- ============================================================ -->
+<section class="section">
+    <h2>📄 Лицензия и контакты</h2>
+    <p>
+        Проект распространяется под лицензией <strong>MIT</strong>.
+        Полный текст — в файле <code>LICENSE</code>.
+    </p>
+    <ul>
+        <li><strong>Автор:</strong> Куралесенко Дмитрий Владимирович</li>
+        <li><strong>GitHub:</strong> <a href="https://github.com/tuy181201-boop/sdgs-project">tuy181201-boop/sdgs-project</a></li>
+        <li><strong>Сайт:</strong> <a href="https://sdgs.fun">sdgs.fun</a></li>
+    </ul>
+    <blockquote class="quote">
+        «Мы строим не игру — мы строим живые миры.»
+    </blockquote>
+</section>
+
+<footer class="footer">
+    <p>SDGS — System Distributed Game Server · Документация v1.0 · Сентябрь 2026</p>
+</footer>
+
+</main>
+
+<!-- ============================================================
+     КНОПКА ВВЕРХ
+     ============================================================ -->
+<button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+
+<script src="js/index.js"></script>
+
+</body>
+</html>

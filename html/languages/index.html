@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SDGS — 22 языка + LLVM IR, используемые в SDGS.">
+<title>SDGS — Языки программирования SDGS</title>
+<link rel="stylesheet" href="../css/index.css">
+<style>
+    .breadcrumbs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .4rem;
+        align-items: center;
+        font-size: .85rem;
+        color: var(--text-dim);
+        margin-bottom: 1.5rem;
+    }
+    .breadcrumbs a { color: var(--accent); }
+    .breadcrumbs .sep { color: var(--text-muted); }
+    .subpage-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        margin: 1rem 0 2rem;
+    }
+    .subpage-meta span {
+        font-size: .8rem;
+        color: var(--text-dim);
+        background: var(--bg-panel);
+        padding: .3rem .8rem;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+    }
+    .subpage-meta span b { color: var(--text); font-weight: 600; }
+    .placeholder {
+        border: 1px dashed var(--border);
+        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        color: var(--text-muted);
+        background: rgba(42,58,102,.08);
+        font-style: italic;
+        margin: 1rem 0;
+    }
+    .nav-prev-next {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+    }
+    .nav-prev-next a {
+        display: inline-block;
+        padding: .6rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text);
+        transition: .2s;
+        max-width: 48%;
+    }
+    .nav-prev-next a:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        text-decoration: none;
+    }
+    .nav-prev-next .disabled {
+        visibility: hidden;
+    }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
+
+<aside class="sidebar" id="sidebar" aria-label="Основная навигация">
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">🌍 SDGS</a></h1>
+    <div class="version">Документация · v1.0</div>
+    <nav>
+        <ol>
+<li><a href="../index.html#overview">Обзор проекта</a></li>
+<li><a href="../index.html#architecture">Архитектура</a></li>
+<li><a href="../index.html#formats">Форматы данных</a></li>
+<li><a href="../index.html#languages">Языки программирования</a></li>
+<li><a href="../index.html#determinism">Детерминизм и LCG</a></li>
+<li><a href="../index.html#pascal">Pascal-скрипты</a></li>
+<li><a href="../index.html#binary">Бинарный формат</a></li>
+<li><a href="../index.html#music">TrackScript</a></li>
+<li><a href="../index.html#camera">Модуль камеры</a></li>
+<li><a href="../index.html#physics">Физика на Fortran</a></li>
+<li><a href="../index.html#web">Веб-инструменты</a></li>
+<li><a href="../index.html#website">Сайт sdgs.fun</a></li>
+<li><a href="../index.html#hardware">Требования к железу</a></li>
+<li><a href="../index.html#console">Консольная версия</a></li>
+<li><a href="../index.html#roadmap">Дорожная карта</a></li>
+<li style="margin-top:.8rem;"><a href="../index.html" style="color:var(--accent);font-weight:600;">← Все языки</a></li>
+        </ol>
+    </nav>
+</aside>
+
+<main>
+
+<nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <span>Языки программирования SDGS</span>
+</nav>
+
+<header class="doc-header">
+    <h1>Языки программирования SDGS</h1>
+    <p class="doc-lead">22 языка + LLVM IR, используемые в SDGS.</p>
+</header>
+
+<section class="section">
+<table>
+    <thead>
+        <tr><th>Расширение</th><th>Имя</th><th>Краткое описание</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="lsp/lsp.html"><code>.lsp</code></a></td><td>Lisp</td><td>AI Core, метапрограммирование.</td></tr>
+        <tr><td><a href="f/f.html"><code>.f</code></a></td><td>Fortran</td><td>Физика, химия, симуляции.</td></tr>
+        <tr><td><a href="cbl/cbl.html"><code>.cbl</code></a></td><td>COBOL</td><td>Экономика, справочники.</td></tr>
+        <tr><td><a href="bas/bas.html"><code>.bas</code></a></td><td>BASIC</td><td>Прототипы, обучение.</td></tr>
+        <tr><td><a href="apl/apl.html"><code>.apl</code></a></td><td>APL</td><td>Массивы, матрицы.</td></tr>
+        <tr><td><a href="sn/sn.html"><code>.sn</code></a></td><td>SNOBOL</td><td>Диалоги, строки.</td></tr>
+        <tr><td><a href="sim/sim.html"><code>.sim</code></a></td><td>Simula</td><td>ООП, иерархия NPC.</td></tr>
+        <tr><td><a href="pas/pas.html"><code>.pas</code></a></td><td>Pascal</td><td>Геном мира, структурные скрипты.</td></tr>
+        <tr><td><a href="c/c.html"><code>.c</code></a></td><td>C</td><td>Критичная производительность.</td></tr>
+        <tr><td><a href="fth/fth.html"><code>.fth</code></a></td><td>Forth</td><td>Низкоуровневое управление.</td></tr>
+        <tr><td><a href="rs/rs.html"><code>.rs</code></a></td><td>Rust</td><td>Безопасные модули (FFI).</td></tr>
+        <tr><td><a href="erl/erl.html"><code>.erl</code></a></td><td>Erlang</td><td>Параллельные реакции.</td></tr>
+        <tr><td><a href="lua/lua.html"><code>.lua</code></a></td><td>Lua</td><td>Универсальный скриптинг.</td></tr>
+        <tr><td><a href="fnl/fnl.html"><code>.fnl</code></a></td><td>Fennel</td><td>Lisp на Lua.</td></tr>
+        <tr><td><a href="moon/moon.html"><code>.moon</code></a></td><td>MoonScript</td><td>Python-подобный синтаксис.</td></tr>
+        <tr><td><a href="luau/luau.html"><code>.luau</code></a></td><td>Luau</td><td>Lua с типами.</td></tr>
+        <tr><td><a href="meta/meta.html"><code>.meta</code></a></td><td>MetaLua</td><td>Генерация кода.</td></tr>
+        <tr><td><a href="gsl/gsl.html"><code>.gsl</code></a></td><td>GSL Shell</td><td>Научные вычисления.</td></tr>
+        <tr><td><a href="llvm/llvm.html"><code>.llvm</code></a></td><td>LLVM-Lua</td><td>JIT/AOT-компиляция.</td></tr>
+        <tr><td><a href="clp/clp.html"><code>.clp</code></a></td><td>CLIPS</td><td>Экспертные системы NPC.</td></tr>
+        <tr><td><a href="py/py.html"><code>.py</code></a></td><td>Python</td><td>AI Core, VFX-автоматизация.</td></tr>
+        <tr><td><a href="wl/wl.html"><code>.wl</code></a></td><td>Wolfram Language</td><td>Символьное проектирование.</td></tr>
+        <tr><td><a href="ll/ll.html"><code>.ll</code></a></td><td>LLVM IR (.ll)</td><td>Единое промежуточное представление (текст).</td></tr>
+        <tr><td><a href="bc/bc.html"><code>.bc</code></a></td><td>LLVM IR (.bc)</td><td>Биткод LLVM IR.</td></tr>
+    </tbody>
+</table>
+</section>
+
+<footer class="footer">
+    <p>SDGS — System Distributed Game Server · Документация v1.0</p>
+</footer>
+
+</main>
+
+<button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+
+<script src="../js/subpage.js"></script>
+
+</body>
+</html>

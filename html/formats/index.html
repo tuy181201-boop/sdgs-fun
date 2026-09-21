@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SDGS — Полный список расширений, используемых в SDGS.">
+<title>SDGS — Форматы данных SDGS</title>
+<link rel="stylesheet" href="../css/index.css">
+<style>
+    .breadcrumbs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .4rem;
+        align-items: center;
+        font-size: .85rem;
+        color: var(--text-dim);
+        margin-bottom: 1.5rem;
+    }
+    .breadcrumbs a { color: var(--accent); }
+    .breadcrumbs .sep { color: var(--text-muted); }
+    .subpage-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        margin: 1rem 0 2rem;
+    }
+    .subpage-meta span {
+        font-size: .8rem;
+        color: var(--text-dim);
+        background: var(--bg-panel);
+        padding: .3rem .8rem;
+        border-radius: 20px;
+        border: 1px solid var(--border);
+    }
+    .subpage-meta span b { color: var(--text); font-weight: 600; }
+    .placeholder {
+        border: 1px dashed var(--border);
+        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        color: var(--text-muted);
+        background: rgba(42,58,102,.08);
+        font-style: italic;
+        margin: 1rem 0;
+    }
+    .nav-prev-next {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+    }
+    .nav-prev-next a {
+        display: inline-block;
+        padding: .6rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--text);
+        transition: .2s;
+        max-width: 48%;
+    }
+    .nav-prev-next a:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        text-decoration: none;
+    }
+    .nav-prev-next .disabled {
+        visibility: hidden;
+    }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" id="menuToggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
+
+<aside class="sidebar" id="sidebar" aria-label="Основная навигация">
+    <h1><a href="../index.html" style="color:inherit;text-decoration:none;">🌍 SDGS</a></h1>
+    <div class="version">Документация · v1.0</div>
+    <nav>
+        <ol>
+<li><a href="../index.html#overview">Обзор проекта</a></li>
+<li><a href="../index.html#architecture">Архитектура</a></li>
+<li><a href="../index.html#formats">Форматы данных</a></li>
+<li><a href="../index.html#languages">Языки программирования</a></li>
+<li><a href="../index.html#determinism">Детерминизм и LCG</a></li>
+<li><a href="../index.html#pascal">Pascal-скрипты</a></li>
+<li><a href="../index.html#binary">Бинарный формат</a></li>
+<li><a href="../index.html#music">TrackScript</a></li>
+<li><a href="../index.html#camera">Модуль камеры</a></li>
+<li><a href="../index.html#physics">Физика на Fortran</a></li>
+<li><a href="../index.html#web">Веб-инструменты</a></li>
+<li><a href="../index.html#website">Сайт sdgs.fun</a></li>
+<li><a href="../index.html#hardware">Требования к железу</a></li>
+<li><a href="../index.html#console">Консольная версия</a></li>
+<li><a href="../index.html#roadmap">Дорожная карта</a></li>
+<li style="margin-top:.8rem;"><a href="../index.html" style="color:var(--accent);font-weight:600;">← Все форматы</a></li>
+        </ol>
+    </nav>
+</aside>
+
+<main>
+
+<nav class="breadcrumbs">
+    <a href="../index.html">Главная</a>
+    <span class="sep">›</span>
+    <span>Форматы данных SDGS</span>
+</nav>
+
+<header class="doc-header">
+    <h1>Форматы данных SDGS</h1>
+    <p class="doc-lead">Полный список расширений, используемых в SDGS.</p>
+</header>
+
+<section class="section">
+<table>
+    <thead>
+        <tr><th>Расширение</th><th>Имя</th><th>Краткое описание</th></tr>
+    </thead>
+    <tbody>
+        <tr><td><a href="vxps/vxps.html"><code>.vxps</code></a></td><td>VXPS</td><td>Воксельные модели, генерируемые Pascal-скриптом.</td></tr>
+        <tr><td><a href="anps/anps.html"><code>.anps</code></a></td><td>ANPS</td><td>Анимации: время + пространство.</td></tr>
+        <tr><td><a href="wtps/wtps.html"><code>.wtps</code></a></td><td>WTPS</td><td>Ландшафт: чанки, высоты, биомы.</td></tr>
+        <tr><td><a href="efxps/efxps.html"><code>.efxps</code></a></td><td>EFXPS</td><td>Эффекты: взрывы, огонь, магия.</td></tr>
+        <tr><td><a href="fldps/fldps.html"><code>.fldps</code></a></td><td>FLDPS</td><td>Физические поля: ветер, вода, тепло.</td></tr>
+        <tr><td><a href="genps/genps.html"><code>.genps</code></a></td><td>GENPS</td><td>Генеративные модели (произвольная размерность).</td></tr>
+        <tr><td><a href="imgps/imgps.html"><code>.imgps</code></a></td><td>IMGPS</td><td>Генерация текстур (RGB).</td></tr>
+        <tr><td><a href="krl/krl.html"><code>.krl</code></a></td><td>KRL</td><td>Поведение NPC (конечные автоматы).</td></tr>
+        <tr><td><a href="ql/ql.html"><code>.ql</code></a></td><td>QL</td><td>Квесты.</td></tr>
+        <tr><td><a href="dl/dl.html"><code>.dl</code></a></td><td>DL</td><td>Диалоги.</td></tr>
+        <tr><td><a href="lg/lg.html"><code>.lg</code></a></td><td>LG</td><td>Правила мира.</td></tr>
+        <tr><td><a href="mood/mood.html"><code>.mood</code></a></td><td>MOOD</td><td>Эволюционные данные: настроение мира.</td></tr>
+        <tr><td><a href="lineage/lineage.html"><code>.lineage</code></a></td><td>LINEAGE</td><td>Эволюционные данные: родословная.</td></tr>
+        <tr><td><a href="echo/echo.html"><code>.echo</code></a></td><td>ECHO</td><td>Эволюционные данные: эхо событий.</td></tr>
+        <tr><td><a href="legacy/legacy.html"><code>.legacy</code></a></td><td>LEGACY</td><td>Эволюционные данные: наследие.</td></tr>
+        <tr><td><a href="event/event.html"><code>.event</code></a></td><td>EVENT</td><td>События мира.</td></tr>
+        <tr><td><a href="rule/rule.html"><code>.rule</code></a></td><td>RULE</td><td>Правила и законы.</td></tr>
+        <tr><td><a href="dream/dream.html"><code>.dream</code></a></td><td>DREAM</td><td>Сны мира.</td></tr>
+        <tr><td><a href="state/state.html"><code>.state</code></a></td><td>STATE</td><td>Состояния.</td></tr>
+        <tr><td><a href="mod/mod.html"><code>.mod</code></a></td><td>MOD</td><td>Моды.</td></tr>
+        <tr><td><a href="proto/proto.html"><code>.proto</code></a></td><td>PROTO</td><td>Прототипы.</td></tr>
+        <tr><td><a href="vxl/vxl.html"><code>.vxl</code></a></td><td>VXL</td><td>Воксельные модели (RGBA + масса).</td></tr>
+        <tr><td><a href="swt/swt.html"><code>.swt</code></a></td><td>SWT</td><td>Структурированный ландшафт (ZIP+JSON).</td></tr>
+        <tr><td><a href="anim/anim.html"><code>.anim</code></a></td><td>ANIM</td><td>Воксельные анимации.</td></tr>
+        <tr><td><a href="efx/efx.html"><code>.efx</code></a></td><td>EFX</td><td>Составные эффекты.</td></tr>
+        <tr><td><a href="scl/scl.html"><code>.scl</code></a></td><td>SCL</td><td>Коллизии.</td></tr>
+        <tr><td><a href="smp/smp.html"><code>.smp</code></a></td><td>SMP</td><td>Мод-пакеты.</td></tr>
+        <tr><td><a href="snd/snd.html"><code>.snd</code></a></td><td>SND</td><td>Звуковые файлы.</td></tr>
+        <tr><td><a href="vid/vid.html"><code>.vid</code></a></td><td>VID</td><td>Видео.</td></tr>
+        <tr><td><a href="scn/scn.html"><code>.scn</code></a></td><td>SCN</td><td>Сцены.</td></tr>
+        <tr><td><a href="seq/seq.html"><code>.seq</code></a></td><td>SEQ</td><td>Последовательности.</td></tr>
+        <tr><td><a href="menu/menu.html"><code>.menu</code></a></td><td>MENU</td><td>Интерфейсы и меню.</td></tr>
+        <tr><td><a href="chem/chem.html"><code>.chem</code></a></td><td>CHEM</td><td>Химические вещества и реакции.</td></tr>
+        <tr><td><a href="med/med.html"><code>.med</code></a></td><td>MED</td><td>Медицина: болезни, лечение.</td></tr>
+        <tr><td><a href="rec/rec.html"><code>.rec</code></a></td><td>REC</td><td>Рецепты.</td></tr>
+        <tr><td><a href="law16/law16.html"><code>.law16</code></a></td><td>LAW16</td><td>Законы (16-битная схема).</td></tr>
+        <tr><td><a href="rgs/rgs.html"><code>.rgs</code></a></td><td>RGS</td><td>Реестр ресурсов.</td></tr>
+        <tr><td><a href="assoc/assoc.html"><code>.assoc</code></a></td><td>ASSOC</td><td>Ассоциации.</td></tr>
+        <tr><td><a href="meta/meta.html"><code>.meta</code></a></td><td>META</td><td>Метаданные.</td></tr>
+        <tr><td><a href="vfont/vfont.html"><code>.vfont</code></a></td><td>VFONT</td><td>Воксельные шрифты.</td></tr>
+        <tr><td><a href="afont/afont.html"><code>.afont</code></a></td><td>AFONT</td><td>Альтернативные шрифты.</td></tr>
+        <tr><td><a href="dna/dna.html"><code>.dna</code></a></td><td>DNA</td><td>Геном мира (Pascal).</td></tr>
+        <tr><td><a href="ts/ts.html"><code>.ts</code></a></td><td>TS</td><td>TrackScript (музыка).</td></tr>
+    </tbody>
+</table>
+</section>
+
+<footer class="footer">
+    <p>SDGS — System Distributed Game Server · Документация v1.0</p>
+</footer>
+
+</main>
+
+<button class="to-top" id="toTop" aria-label="Наверх">↑</button>
+
+<script src="../js/subpage.js"></script>
+
+</body>
+</html>
