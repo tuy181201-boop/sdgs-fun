@@ -5,6 +5,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub last commit](https://img.shields.io/github/last-commit/tuy181201-boop/sdgs-project)](https://github.com/tuy181201-boop/sdgs-project)
 [![GitHub repo size](https://img.shields.io/github/repo-size/tuy181201-boop/sdgs-project)](https://github.com/tuy181201-boop/sdgs-project)
+![HTML](https://img.shields.io/badge/HTML-orange)
+![C++](https://img.shields.io/badge/C++-blue)
+![JavaScript](https://img.shields.io/badge/JavaScript-yellow)
+![CSS](https://img.shields.io/badge/CSS-purple)
+![CMake](https://img.shields.io/badge/CMake-red)
 
   ---
 
