@@ -161,9 +161,8 @@ SDGS поддерживает 22 языка программирования, о
 ## 🤝 Контакты и сообщество
 
 - **Автор:** Куралесенко Дмитрий Владимирович
-- **GitHub:** [tuy181201-boop/sdgs-project](https://github.com/tuy181201-boop/sdgs-project)
+- **GitHub:** [tuy181201-boop/sdgs-fun](https://github.com/tuy181201-boop/sdgs-fun)
 - **Сайт:** [sdgs.fun](https://sdgs.fun) (в разработке)
-- **Документация:** [docs/](./docs)
 
 Присоединяйтесь к разработке! 🚀
 
