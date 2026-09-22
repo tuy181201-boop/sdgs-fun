@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDGS Explorer — просмотр форматов</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <h1>🔍 SDGS Explorer</h1>
+        <p class="sub">Просмотр VXL, SWT, DNA, RGS</p>
+
+        <label class="file-btn">
+            📂 Открыть файл
+            <input type="file" id="file-input" accept=".vxl,.swt,.dna,.rgs,.vt,.rgs.json">
+        </label>
+
+        <div class="info-panel">
+            <h3>Информация</h3>
+            <div id="file-info">
+                <p class="hint">Файл не загружен</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="btn-wireframe">🔲 Каркас</button>
+            <button id="btn-reset-cam">↺ Камера</button>
+            <button id="btn-screenshot">📷 Скриншот</button>
+        </div>
+    </aside>
+
+    <main id="viewport"></main>
+
+    <div class="status" id="status">Готов</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

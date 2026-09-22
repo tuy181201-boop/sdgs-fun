@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voxel Editor — послойное редактирование</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <h1>🧱 Voxel Editor</h1>
+        <p class="sub">Послойный редактор с симметрией</p>
+
+        <label>Инструмент</label>
+        <select id="tool-select">
+            <option value="brush">Кисть</option>
+            <option value="sphere">Сфера</option>
+            <option value="box">Куб</option>
+            <option value="erase">Ластик</option>
+        </select>
+
+        <label>Размер: <span id="size-label">3</span></label>
+        <input type="range" id="size-slider" min="1" max="10" value="3">
+
+        <label>Цвет</label>
+        <input type="color" id="color" value="#44ff88">
+
+        <label>Симметрия</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox" id="sym-x"> По X</label>
+            <label><input type="checkbox" id="sym-y"> По Y</label>
+            <label><input type="checkbox" id="sym-z"> По Z</label>
+        </div>
+
+        <label>Слои</label>
+        <div class="layers" id="layers"></div>
+
+        <div class="actions">
+            <button id="btn-add-layer">+ Слой</button>
+            <button id="btn-clear" class="danger">🗑 Очистить</button>
+        </div>
+
+        <label>Экспорт</label>
+        <button id="btn-export-json">💾 JSON</button>
+        <button id="btn-export-vxps" class="primary">📄 VXPS</button>
+
+        <div class="stats">
+            <div>Вокселей: <span id="count">0</span></div>
+            <div>Слоёв: <span id="layer-count">0</span></div>
+        </div>
+    </aside>
+
+    <main id="viewport"></main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>

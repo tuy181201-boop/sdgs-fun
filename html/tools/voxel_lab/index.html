@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voxel Lab — редактор моделей</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <h1>🧊 Voxel Lab</h1>
+        <p class="sub">Редактор воксельных моделей</p>
+
+        <label>Кисть</label>
+        <select id="brush-size">
+            <option value="1">1×1×1</option>
+            <option value="2">2×2×2</option>
+            <option value="3">3×3×3</option>
+        </select>
+
+        <label>Цвет</label>
+        <div class="palette" id="palette"></div>
+        <input type="color" id="custom-color" value="#00d4ff">
+
+        <div class="actions">
+            <button id="btn-undo" title="Ctrl+Z">↶ Отменить</button>
+            <button id="btn-redo" title="Ctrl+Y">↷ Вернуть</button>
+            <button id="btn-clear" class="danger">🗑 Очистить</button>
+        </div>
+
+        <label>Экспорт</label>
+        <button id="btn-vxps" class="primary">📄 VXPS (Pascal)</button>
+        <button id="btn-vxl">💾 VXL (бинарный)</button>
+        <button id="btn-stl">📦 STL (3D-печать)</button>
+
+        <label>Импорт</label>
+        <label class="file-btn">
+            📂 Загрузить VXPS
+            <input type="file" id="file-input" accept=".vxps">
+        </label>
+
+        <div class="stats">
+            <div>Вокселей: <span id="count">0</span></div>
+            <div>Объём: <span id="volume">0</span> мм³</div>
+        </div>
+    </aside>
+
+    <main id="viewport"></main>
+
+    <div class="hint-bar">
+        ЛКМ — добавить · ПКМ — удалить · Колесо — зум · Зажмите ЛКМ для рисования
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/STLExporter.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
