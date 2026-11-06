@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCA2RAW Protocol — Документация</title>
+    <link rel="stylesheet" href="css/mca2raw.css">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h1>MCA2RAW Protocol</h1>
+            <p>Landscape Extraction Pipeline for SDGS</p>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#overview" class="active">Обзор</a></li>
+            <li><a href="#architecture">Архитектура</a></li>
+            <li><a href="#format">Спецификация .raw</a></li>
+            <li><a href="#repository">Структура репозитория</a></li>
+            <li><a href="#requirements">Требования и файлы</a></li>
+            <li><a href="#installation">Установка</a></li>
+            <li><a href="#usage">Использование</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        
+        <section id="overview">
+            <h2>MCA2RAW Protocol</h2>
+            <p><strong>High-Performance Terrain Generation &amp; Extraction Pipeline for SDGS (System Distributed Game Server)</strong></p>
+            <p>MCA2RAW — это автономный программный комплекс и спецификация формата данных, предназначенные для конвертации ландшафта из Minecraft (в формате <code>.mca</code>) в сырые бинарные массивы высот (<code>.raw</code>), оптимизированные для чтения игровым движком SDGS на C++.</p>
+            
+            <h3>🚀 Ключевые возможности</h3>
+            <ul>
+                <li><strong>Zero-Touch генерация:</strong> Python-оркестратор сам запускает headless-сервер, управляет Chunky через RCON и выключает сервер.</li>
+                <li><strong>Мультиязычный пайплайн:</strong> Java (быстрый парсинг NBT), Python (оркестрация, Web GUI), BAT (TUI).</li>
+                <li><strong>Двойной интерфейс:</strong> GUI на <code>pywebview</code> и TUI на чистом <code>.bat</code>.</li>
+                <li><strong>Прямая конвертация:</strong> Данные сохраняются в формате <code>t.x.z.raw</code>, который читается в C++ за миллисекунды.</li>
+            </ul>
+        </section>
+
+        <section id="architecture">
+            <h2>🏗️ Архитектура</h2>
+            <div class="code-wrapper">
+                <button class="copy-btn">Копировать</button>
+                <pre><code>[ Minecraft Server (Paper) ] 
+       │ (RCON)
+       ▼
+[ Python Orchestrator (app.py) ] ──> [ Web GUI (pywebview) ]
+       │                          └──> [ TUI (BAT) ]
+       │ (subprocess)
+       ▼
+[ Java Extractor (McExtractor.jar) ]
+       │ (Binary parsing)
+       ▼
+[ Output: t.x.z.raw ] ──> [ C++ SDGS Engine ]</code></pre>
+            </div>
+        </section>
+
+        <section id="format">
+            <h2>📜 Спецификация формата .raw</h2>
+            <p>Протокол MCA2RAW сохраняет карту высот (Heightmap) одного региона Minecraft (512x512 блоков) в бинарный файл формата <code>.raw</code>.</p>
+            
+            <h3>Правила именования</h3>
+            <p>Файлы сохраняются в папку с именем сида мира (<code>seed/</code>) и имеют строгую структуру:</p>
+            <ul>
+                <li><code>t.x.z.raw</code> — где <code>x</code> и <code>z</code> — координаты региона (например, <code>t.-1.0.raw</code>).</li>
+            </ul>
+
+            <h3>Структура файла</h3>
+            <table>
+                <tr><th>Параметр</th><th>Значение</th></tr>
+                <tr><td>Размер файла</td><td>Ровно <code>524,288</code> байт</td></tr>
+                <tr><td>Формат данных</td><td><code>signed 16-bit integer</code> (Little-Endian, <code>short</code> в Java, <code>int16_t</code> в C++)</td></tr>
+                <tr><td>Порядок байтов</td><td>Построчно (Row-major). Сначала 512 значений по X для Z=0, затем для Z=1 и т.д.</td></tr>
+                <tr><td>Индекс</td><td><code>index = (Z * 512) + X</code></td></tr>
+                <tr><td>Пустоты</td><td>Если нет твердых блоков, записывается значение <code>-64</code></td></tr>
+            </table>
+
+            <h3>Пример чтения в C++ (SDGS)</h3>
+            <div class="code-wrapper">
+                <button class="copy-btn">Копировать</button>
+                <pre><code>#include &lt;fstream&gt;
+#include &lt;vector&gt;
+
+const int REGION_SIZE = 512;
+const int TOTAL_BLOCKS = REGION_SIZE * REGION_SIZE;
+
+std::vector&lt;int16_t&gt; LoadRawTerrain(const std::string& filepath) {
+    std::ifstream file(filepath, std::ios::binary);
+    std::vector&lt;int16_t&gt; heights(TOTAL_BLOCKS);
+    // Чтение всего массива за один проход
+    file.read(reinterpret_cast&lt;char*&gt;(heights.data()), TOTAL_BLOCKS * sizeof(int16_t));
+    return heights;
+}</code></pre>
+            </div>
+        </section>
+
+        <section id="repository">
+            <h2>📂 Структура репозитория</h2>
+            <div class="code-wrapper">
+                <button class="copy-btn">Копировать</button>
+                <pre><code>MCA2RAW/
+├── app/
+│   ├── mca2raw_core.py       # Ядро: управление Java и парсинг stdout
+│   ├── mca2raw_cli.py        # Адаптер для TUI
+│   ├── mca2raw_gui.py        # Адаптер для Web GUI
+│   └── server_orchestrator.py# Zero-touch оркестратор сервера
+├── doc/                      # Документация (этот сайт)
+├── lib/
+│   ├── ui.bat                # TUI-фреймворк для Windows
+│   └── key.c                 # Нативный считыватель клавиш
+├── libs/
+│   ├── NBT-6.1.jar           # Зависимость для Java Extractor
+│   └── McExtractor.jar       # Скомпилированный Java-парсер
+├── MCAGenerator/             # Папка для сервера (игнорируется Git)
+│   ├── server.jar            # Paper Server
+│   ├── jdk-21/               # Автоскачиваемая Java
+│   └── plugins/Chunky.jar
+├── run.bat                   # Главный скрипт запуска TUI
+└── requirements.txt          # Python-зависимости</code></pre>
+            </div>
+        </section>
+
+        <section id="requirements">
+            <h2>⚙️ Требования и файлы</h2>
+            <p>Для работы MCA2RAW требуются следующие компоненты. Тяжелые файлы не хранятся в Git, поэтому скачайте их вручную:</p>
+            
+            <div class="download-grid">
+                <a href="https://adoptium.net/download?link=https%3A%2F%2Fgithub.com%2Fadoptium%2Ftemurin21-binaries%2Freleases%2Fdownload%2Fjdk-21.0.13%252B9%2FOpenJDK21U-jdk_x64_windows_hotspot_21.0.13_9.zip&vendor=Adoptium" class="dl-btn" target="_blank">
+                    <span>☕</span>
+                    <strong>JDK 21 (Temurin)</strong>
+                    <small>Распакуйте в MCAGenerator/jdk-21</small>
+                </a>
+                
+                <a href="https://api.papermc.io/v2/projects/paper/versions/1.21.11/builds/116/downloads/paper-1.21.11-116.jar" class="dl-btn" target="_blank">
+                    <span>📄</span>
+                    <strong>Paper 1.21.11</strong>
+                    <small>Переименуйте в server.jar</small>
+                </a>
+                
+                <a href="https://modrinth.com/plugin/chunky/versions?g=1.21.11" class="dl-btn" target="_blank">
+                    <span>🌍</span>
+                    <strong>Chunky Plugin</strong>
+                    <small>Положите в plugins/</small>
+                </a>
+            </div>
+
+            <ul>
+                <li><strong>ОС:</strong> Windows 10/11 (x86-64).</li>
+                <li><strong>Python:</strong> Версия 3.11+ (с <code>pywebview</code> и <code>mcrcon</code>).</li>
+                <li><strong>Компилятор C:</strong> GCC или Clang (для сборки <code>key.exe</code>).</li>
+            </ul>
+        </section>
+
+        <section id="installation">
+            <h2>🛠️ Установка и настройка</h2>
+            
+            <h3>1. Установка зависимостей Python</h3>
+            <div class="code-wrapper">
+                <button class="copy-btn">Копировать</button>
+                <pre><code>pip install -r requirements.txt</code></pre>
+            </div>
+
+            <h3>2. Настройка RCON</h3>
+            <p>В файле <code>MCAGenerator/server.properties</code> должны быть строки:</p>
+            <div class="code-wrapper">
+                <button class="copy-btn">Копировать</button>
+                <pre><code>enable-rcon=true
+rcon.password=mcautogen
+rcon.port=25575</code></pre>
+            </div>
+
+            <h3>3. Компиляция Java-парсера</h3>
+            <div class="code-wrapper">
+                <button class="copy-btn">Копировать</button>
+                <pre><code>cd libs
+javac -cp "NBT-6.1.jar" McExtractor.java
+jar cfe McExtractor.jar McExtractor *.class</code></pre>
+            </div>
+        </section>
+
+        <section id="usage">
+            <h2>🎮 Использование</h2>
+
+            <h3>Режим 1: Web GUI</h3>
+            <div class="code-wrapper">
+                <button class="copy-btn">Копировать</button>
+                <pre><code>python app/mca2raw_gui.py</code></pre>
+            </div>
+
+            <h3>Режим 2: TUI (Консольный интерфейс)</h3>
+            <p>Запустите <code>run.bat</code> в Windows. Вас встретит меню с управлением стрелками ↑/↓. Выберите "Генерация мира (Zero-Touch)", и скрипт сам запустит сервер, сгенерирует регионы и конвертирует их в RAW.</p>
+        </section>
+
+    </main>
+
+    <script src="js/mca2raw.js"></script>
+</body>
+</html>

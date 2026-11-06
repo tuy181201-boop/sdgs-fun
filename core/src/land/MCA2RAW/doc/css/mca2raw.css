@@ -1,0 +1,97 @@
+:root {
+    --bg-base: #1e1e2e;
+    --bg-sidebar: #181825;
+    --bg-card: #252536;
+    --text-main: #cdd6f4;
+    --text-muted: #a6adc8;
+    --accent: #89b4fa;
+    --accent-hover: #b4befe;
+    --green: #a6e3a1;
+    --border: #313244;
+    --code-bg: #11111b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+
+body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-base); color: var(--text-main);
+    display: flex; height: 100vh; overflow: hidden;
+}
+
+/* --- Боковая панель --- */
+.sidebar {
+    width: 280px; background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border); padding: 20px 0;
+    display: flex; flex-direction: column; overflow-y: auto; flex-shrink: 0;
+}
+.sidebar-header { padding: 0 20px 20px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
+.sidebar-header h1 { font-size: 20px; color: var(--accent); letter-spacing: 0.5px; }
+.sidebar-header p { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+.nav-links { list-style: none; }
+.nav-links li a {
+    display: block; padding: 10px 20px; color: var(--text-muted);
+    text-decoration: none; font-size: 14px; transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+.nav-links li a:hover { background-color: var(--bg-card); color: var(--text-main); }
+.nav-links li a.active { border-left-color: var(--accent); color: var(--accent); background-color: rgba(137, 180, 250, 0.1); }
+
+/* --- Контент --- */
+.content { flex: 1; padding: 40px 60px; overflow-y: auto; }
+.content h2 { font-size: 28px; color: #fff; margin: 40px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.content h2:first-child { margin-top: 0; }
+.content h3 { font-size: 20px; color: var(--accent); margin: 25px 0 15px; }
+.content p, .content li { line-height: 1.6; margin-bottom: 15px; font-size: 15px; }
+.content ul { padding-left: 20px; }
+.content strong { color: #fff; }
+
+/* --- Кнопки скачивания --- */
+.download-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 15px; 
+    margin: 20px 0; 
+}
+.dl-btn {
+    background: var(--bg-card); 
+    border: 1px solid var(--border);
+    padding: 15px; 
+    border-radius: 8px; 
+    text-align: center; 
+    text-decoration: none;
+    color: var(--text-main); 
+    transition: all 0.2s; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+.dl-btn:hover { 
+    border-color: var(--accent); 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3); 
+}
+.dl-btn span { font-size: 24px; margin-bottom: 10px; }
+.dl-btn small { color: var(--text-muted); font-size: 12px; margin-top: 5px; }
+
+/* --- Код --- */
+.code-wrapper { position: relative; margin: 20px 0; }
+pre { background-color: var(--code-bg); padding: 20px; border-radius: 8px; overflow-x: auto; border: 1px solid var(--border); }
+code { font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 13.5px; color: var(--green); line-height: 1.5; }
+.copy-btn {
+    position: absolute; top: 10px; right: 10px; background: var(--border); color: var(--text-main);
+    border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; cursor: pointer; transition: 0.2s;
+}
+.copy-btn:hover { background: var(--accent); color: var(--bg-base); }
+
+/* --- Таблицы --- */
+table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+th { background-color: var(--bg-card); color: var(--accent); font-weight: 600; }
+
+/* --- Адаптивность --- */
+@media (max-width: 900px) {
+    body { flex-direction: column; height: auto; overflow: auto; }
+    .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+    .content { padding: 20px; overflow: visible; }
+}
