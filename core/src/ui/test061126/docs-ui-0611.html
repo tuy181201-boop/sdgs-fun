@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SDGS Engine — UI Documentation</title>
+    <style>
+        :root {
+            --bg-color: #1e1e2e;
+            --text-color: #cdd6f4;
+            --accent-color: #89b4fa;
+            --code-bg: #313244;
+            --border-color: #45475a;
+            --success-color: #a6e3a1;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: #181825;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        h1, h2, h3 {
+            color: var(--accent-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        h1 { font-size: 2.2em; text-align: center; }
+        h2 { font-size: 1.6em; margin-top: 30px; }
+        h3 { font-size: 1.3em; border-bottom: none; color: #f5c2e7; }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #a6adc8;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-btn:hover { color: var(--text-color); }
+        .tab-btn.active {
+            color: var(--accent-color);
+            border-bottom: 3px solid var(--accent-color);
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        .tab-content.active { display: block; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9em;
+            border: 1px solid var(--border-color);
+        }
+        code {
+            font-family: 'Consolas', 'Courier New', monospace;
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #f5c2e7;
+        }
+        pre code {
+            background-color: transparent;
+            padding: 0;
+            color: var(--text-color);
+        }
+        .note {
+            background-color: rgba(137, 180, 250, 0.1);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .warning {
+            background-color: rgba(243, 139, 168, 0.1);
+            border-left: 4px solid #f38ba8;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        ul, ol { margin-left: 20px; }
+        li { margin-bottom: 8px; }
+        .tree {
+            list-style-type: none;
+            font-family: monospace;
+            background: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.8;
+        }
+        .tree li::before { content: "📁 "; }
+        .tree .file::before { content: "📄 "; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎮 SDGS Engine</h1>
+    <p style="text-align: center; color: #a6adc8;">Гибридная архитектура UI: Lisp (Raylib) + Python (HTML/PNG)</p>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'overview')">📖 Обзор</button>
+        <button class="tab-btn" onclick="openTab(event, 'setup')">⚙️ Настройка окружения</button>
+        <button class="tab-btn" onclick="openTab(event, 'structure')">📂 Структура</button>
+        <button class="tab-btn" onclick="openTab(event, 'code')">💻 Исходный код</button>
+        <button class="tab-btn" onclick="openTab(event, 'build')">🚀 Сборка</button>
+    </div>
+
+    <!-- ВКЛАДКА 1: ОБЗОР -->
+    <div id="overview" class="tab-content active">
+        <h2>Архитектура "State-Driven UI"</h2>
+        <p>Данная подсистема реализует паттерн <strong>Offscreen UI Rendering</strong> (рендеринг интерфейса вне основного игрового окна). Это позволяет полностью изолировать сложный дизайн (HTML/CSS/JS) от игрового цикла.</p>
+        
+        <h3>Как это работает:</h3>
+        <ol>
+            <li><strong>Python (Рендерер):</strong> Генерирует интерфейс (через Pillow или Playwright) и сохраняет его как <code>ui.png</code>.</li>
+            <li><strong>Lisp (Игровой движок):</strong> Raylib открывает окно, рисует игру, а затем накладывает поверх <code>ui.png</code>.</li>
+            <li><strong>BAT (Оркестратор):</strong> Запускает Python в фоне и Lisp в среде MSYS2.</li>
+            <li><strong>Взаимодействие:</strong> При клике по кнопке, Lisp создаёт файл <code>click.txt</code>. Python читает его, меняет картинку и сохраняет. Lisp мгновенно подхватывает обновлённый <code>ui.png</code>.</li>
+        </ol>
+
+        <div class="note">
+            <strong>Почему это круто?</strong> Если Python-скрипт упадёт или зависнет, игра продолжит работать с последней загруженной картинкой. Вы можете менять дизайн интерфейса, не перекомпилируя игровой движок.
+        </div>
+    </div>
+
+    <!-- ВКЛАДКА 2: НАСТРОЙКА -->
+    <div id="setup" class="tab-content">
+        <h2>Настройка окружения (MSYS2)</h2>
+        <p>Для работы системы требуется установленный <strong>MSYS2</strong> с компилятором и SBCL.</p>
+        
+        <h3>1. Установка пакетов</h3>
+        <p>Откройте терминал <code>MSYS2 UCRT64</code> и выполните:</p>
+        <pre><code>pacman -S mingw-w64-ucrt-x86_64-sbcl mingw-w64-ucrt-x86_64-python mingw-w64-ucrt-x86_64-pkgconf</code></pre>
+
+        <h3>2. Установка Quicklisp (Сетевой патч)</h3>
+        <p>Из-за блокировки сокетов в Windows, стандартная установка Quicklisp может не сработать. Мы используем <strong>PowerShell</strong> для скачивания архивов.</p>
+        <p>Файл <code>C:/msys64/home/Tuy181201/.sbclrc</code> должен содержать патч:</p>
+        <pre><code>;; 6. ПАТЧ: Скачивание через PowerShell
+(in-package #:ql-http)
+(defun fetch (url file &rest rest)
+  (declare (ignore rest))
+  (let* ((url-string (if (stringp url) url (urlstring url)))
+         (https-string (if (search "http://" url-string)
+                           (concatenate 'string "https://" (subseq url-string 7))
+                           url-string))
+         (file-path (merge-pathnames file))
+         (file-string (namestring file-path)))
+    (ensure-directories-exist file-path)
+    (format t "~&; [POWERSHELL] Скачиваем ~A~%" https-string)
+    (let ((cmd (format nil "$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest -Uri '~A' -OutFile '~A'" https-string file-string)))
+      (sb-ext:run-program "powershell.exe"
+                          (list "-NoProfile" "-Command" cmd)
+                          :search t
+                          :output *standard-output*
+                          :error *error-output*))
+    (if (probe-file file-path)
+        (progn
+          (format t "~&; [POWERSHELL] Успешно скачано!~%")
+          (probe-file file-path))
+        (error "PowerShell не смог скачать файл ~A" url-string))))</code></pre>
+
+        <h3>3. Установка cl-raylib</h3>
+        <p>Поскольку <code>cl-raylib</code> нет в официальном репозитории Quicklisp, склонируйте его вручную:</p>
+        <pre><code>cd ~/quicklisp/local-projects/
+git clone https://github.com/longlene/cl-raylib.git</code></pre>
+    </div>
+
+    <!-- ВКЛАДКА 3: СТРУКТУРА -->
+    <div id="structure" class="tab-content">
+        <h2>Структура проекта</h2>
+        <p>Рекомендуемая структура папки <code>core/src/ui/</code>:</p>
+        <ul class="tree">
+            <li>launcher/ <br> <span style="color:#a6adc8; font-size:0.9em;">&nbsp;&nbsp;&nbsp;└─ launch.bat (Оркестратор)</span></li>
+            <li>python/ <br> <span style="color:#a6adc8; font-size:0.9em;">&nbsp;&nbsp;&nbsp;├─ make_ui.py (Генератор UI)</span> <br> <span style="color:#a6adc8; font-size:0.9em;">&nbsp;&nbsp;&nbsp;└─ requirements.txt</span></li>
+            <li>lisp/ <br> <span style="color:#a6adc8; font-size:0.9em;">&nbsp;&nbsp;&nbsp;└─ ui_renderer.lisp (Код Raylib)</span></li>
+            <li>assets/ <br> <span style="color:#a6adc8; font-size:0.9em;">&nbsp;&nbsp;&nbsp;├─ ui.png (Сгенерированный интерфейс)</span> <br> <span style="color:#a6adc8; font-size:0.9em;">&nbsp;&nbsp;&nbsp;└─ click.txt (Файл-сигнал)</span></li>
+            <li class="file">.gitignore <br> <span style="color:#a6adc8; font-size:0.9em;">&nbsp;&nbsp;&nbsp;(исключаем ui.png, click.txt, __pycache__)</span></li>
+        </ul>
+    </div>
+
+    <!-- ВКЛАДКА 4: КОД -->
+    <div id="code" class="tab-content">
+        <h2>Исходный код компонентов</h2>
+
+        <h3>1. Python: make_ui.py</h3>
+        <p>Генерирует картинку и слушает файл-сигнал.</p>
+        <pre><code>import time, os
+from PIL import Image, ImageDraw
+
+UI_PATH = "C:/Users/Tuy181201/sdgs-fun/core/src/ui/assets/ui.png"
+CLICK_PATH = "C:/Users/Tuy181201/sdgs-fun/core/src/ui/assets/click.txt"
+
+def draw_ui(state):
+    img = Image.new('RGBA', (800, 600), color=(40, 44, 52, 255))
+    draw = ImageDraw.Draw(img)
+    if state == 0:
+        btn_color, text = (0, 120, 215, 255), "Real HTML Button!"
+    else:
+        btn_color, text = (40, 167, 69, 255), "Clicked!"
+    
+    draw.rectangle([300, 250, 500, 300], fill=btn_color)
+    draw.text((340, 265), text, fill=(255, 255, 255, 255))
+    
+    temp_path = UI_PATH + ".tmp.png"
+    img.save(temp_path, format="PNG")
+    if os.path.exists(UI_PATH): os.remove(UI_PATH)
+    os.rename(temp_path, UI_PATH)
+
+state = 0
+draw_ui(state)
+print("[Python] Generator started. Waiting for clicks...")
+
+while True:
+    if os.path.exists(CLICK_PATH):
+        os.remove(CLICK_PATH)
+        state = 1
+        draw_ui(state)
+        time.sleep(0.5)
+        state = 0
+        draw_ui(state)
+    time.sleep(0.1)</code></pre>
+
+        <h3>2. Lisp: ui_renderer.lisp</h3>
+        <p>Отображает <code>ui.png</code> поверх игры и обрабатывает клики (защита от дребезга через <code>mouse-was-down</code>).</p>
+        <pre><code>(load "C:/msys64/home/Tuy181201/.sbclrc")
+(ql:quickload "cl-raylib" :silent t)
+
+(cl-raylib:init-window 800 600 "Lisp + Interactive HTML UI")
+
+(let ((ui-texture nil)
+      (last-write-time 0)
+      (ui-path "C:/Users/Tuy181201/sdgs-fun/core/src/ui/assets/ui.png")
+      (click-path "C:/Users/Tuy181201/sdgs-fun/core/src/ui/assets/click.txt")
+      (mouse-was-down nil))
+
+  (loop while (not (cl-raylib:window-should-close))
+        do 
+           (when (probe-file ui-path)
+             (let ((current-write-time (ignore-errors (file-write-date ui-path))))
+               (when (and current-write-time (or (null ui-texture) (> current-write-time last-write-time)))
+                 (when (probe-file ui-path)
+                   (let ((new-tex (ignore-errors (cl-raylib:load-texture ui-path))))
+                     (when new-tex
+                       (when ui-texture (ignore-errors (cl-raylib:unload-texture ui-texture)))
+                       (setf ui-texture new-tex)
+                       (setf last-write-time current-write-time)))))))
+
+           (let ((mouse-is-down (cl-raylib:is-mouse-button-pressed 0)))
+             (when (and mouse-is-down (not mouse-was-down))
+               (let ((mx (cl-raylib:get-mouse-x)) (my (cl-raylib:get-mouse-y)))
+                 (when (and (> mx 300) (< mx 500) (> my 250) (< my 300))
+                   (ignore-errors
+                     (with-open-file (s click-path :direction :output :if-exists :supersede)
+                       (format s "clicked"))))))
+             (setf mouse-was-down mouse-is-down))
+
+           (cl-raylib:begin-drawing)
+           (cl-raylib:clear-background (cl-raylib:make-rgba 30 30 30 255))
+           (cl-raylib:draw-circle 400 300 50.0 (cl-raylib:make-rgba 255 0 0 255)) 
+           (when ui-texture (cl-raylib:draw-texture ui-texture 0 0 (cl-raylib:make-rgba 255 255 255 255)))
+           (cl-raylib:end-drawing))
+
+  (when ui-texture (ignore-errors (cl-raylib:unload-texture ui-texture))))
+(cl-raylib:close-window)</code></pre>
+
+        <h3>3. BAT: launch.bat</h3>
+        <p>Оркестратор. Восстанавливает PATH, запускает Python и Lisp.</p>
+        <pre><code>@echo off
+set PATH=C:\Windows\System32;C:\Windows;%PATH%
+
+echo [STEP 1] Starting Python UI Generator...
+start "Python UI" cmd /k "cd /d C:\Users\Tuy181201\sdgs-fun\core\src\ui\python && python make_ui.py"
+
+timeout /t 2 /nobreak >nul
+
+echo [STEP 2] Starting Lisp Engine...
+"C:\msys64\usr\bin\bash.exe" -lc "cd /c/Users/Tuy181201/sdgs-fun/core/src/ui/lisp && /c/msys64/ucrt64/bin/sbcl.exe --script ui_renderer.lisp"
+
+taskkill /F /IM python.exe >nul 2>&1</code></pre>
+    </div>
+
+    <!-- ВКЛАДКА 5: СБОРКА -->
+    <div id="build" class="tab-content">
+        <h2>Сборка Python в EXE (Опционально)</h2>
+        <p>Чтобы пользователю не нужно было устанавливать Python, можно скомпилировать скрипт в исполняемый файл <code>.exe</code> с помощью <strong>PyInstaller</strong>.</p>
+        
+        <h3>1. Установка PyInstaller</h3>
+        <pre><code>pip install pyinstaller</code></pre>
+
+        <h3>2. Сборка</h3>
+        <p>Выполните в папке с вашим <code>make_ui.py</code>:</p>
+        <pre><code>pyinstaller --onefile --noconsole make_ui.py</code></pre>
+        <ul>
+            <li><code>--onefile</code> — собирает всё в один EXE.</li>
+            <li><code>--noconsole</code> — скрывает чёрное окно консоли Python.</li>
+        </ul>
+        <p>Готовый файл будет лежать в папке <code>dist/</code>. В BAT-файле замените вызов <code>python make_ui.py</code> на <code>start "" "make_ui.exe"</code>.</p>
+
+        <div class="warning">
+            <strong>Важно:</strong> Если вы используете Pillow, PyInstaller может потребовать указать путь к DLL. В таком случае используйте флаг <code>--add-data "venv/Lib/site-packages/PIL;PIL"</code>. Если вы перейдёте на Playwright, сборка в EXE сильно усложнится, так как потребуется упаковать браузер Chromium.
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+
+</body>
+</html>
