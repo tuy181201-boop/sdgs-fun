@@ -2,10 +2,6 @@
 
 **Автономная платформа для живых, детерминированных игровых миров без облачных серверов и интернета**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub last commit](https://img.shields.io/github/last-commit/tuy181201-boop/sdgs-project)](https://github.com/tuy181201-boop/sdgs-project)
-[![GitHub repo size](https://img.shields.io/github/repo-size/tuy181201-boop/sdgs-project)](https://github.com/tuy181201-boop/sdgs-project)
-
 ---
 
 ## 📖 О проекте
